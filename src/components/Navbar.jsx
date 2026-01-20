@@ -29,7 +29,7 @@ export default function Navbar() {
             <Link to="/" className="text-gray-300 hover:text-accent font-medium transition-colors">
               홈
             </Link>
-            {user ? (
+            {user && user.role === 'authenticated' ? (
               <>
                 <Link to="/write" className="text-gray-300 hover:text-accent font-medium transition-colors">
                   글쓰기
@@ -98,7 +98,7 @@ export default function Navbar() {
             >
               홈
             </Link>
-            {user ? (
+            {user && user.role === 'authenticated' ? (
               <>
                 <Link
                   to="/write"
