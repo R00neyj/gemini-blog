@@ -57,7 +57,14 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" name="password" className="block text-sm font-medium text-gray-300">비밀번호</label>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" name="password" className="block text-sm font-medium text-gray-300">비밀번호</label>
+                <div className="text-sm">
+                  <Link to="/reset-password" className="font-medium text-accent hover:text-blue-400">
+                    비밀번호를 잊으셨나요?
+                  </Link>
+                </div>
+              </div>
               <input
                 id="password"
                 name="password"
