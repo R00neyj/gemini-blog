@@ -127,7 +127,7 @@ export default function MyBlog() {
   }
 
   return (
-    <div className="min-h-screen p-6 pt-24 animate-fade-in">
+    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24 animate-fade-in">
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 animate-slide-up">
           <div className="flex items-center space-x-4">
@@ -168,7 +168,7 @@ export default function MyBlog() {
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-6 border border-secondary/50"
+                className="block bg-surface rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>

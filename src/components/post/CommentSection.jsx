@@ -13,7 +13,7 @@ export default function CommentSection({ comments, user, newComment, onCommentCh
   };
 
   return (
-    <section className="bg-surface rounded-xl shadow-lg p-8 border border-secondary/50">
+    <section className="bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
       <h3 className="text-xl font-bold text-white mb-6">댓글 {comments.length}개</h3>
       
       {/* Comment List */}

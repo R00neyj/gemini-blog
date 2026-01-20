@@ -49,22 +49,23 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-6 pt-24 relative animate-fade-in">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-white">최신 글</h1>
-        </div>
+    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24 relative animate-fade-in">
+      <div className="max-w-5xl mx-auto">
+        <header className="mb-8 animate-slide-up">
+          <h1 className="text-3xl font-bold text-white mb-2">오늘의 이야기</h1>
+          <p className="text-gray-400">Geminist들이 공유하는 최신 글들을 만나보세요.</p>
+        </header>
 
         {posts.length === 0 ? (
-          <div className="text-center py-20 bg-surface rounded-xl shadow-lg border border-secondary/50">
-            <p className="text-gray-400 text-lg">아직 작성된 글이 없습니다.</p>
+          <div className="text-center py-20 bg-surface rounded-xl border border-dashed border-gray-600">
+            <p className="text-gray-400">아직 게시글이 없습니다. 첫 글을 작성해보세요!</p>
           </div>
         ) : (
           <div className="grid gap-6 animate-slide-up">
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1 p-6 border border-secondary/50 hover:border-accent"
+                className="block bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50 hover:border-accent"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">

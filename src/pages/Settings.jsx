@@ -74,8 +74,8 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen p-6 pt-24 bg-primary">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24 bg-primary">
+      <div className="max-w-2xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold text-white mb-8">내 프로필 설정</h1>
 
         {message.content && (
@@ -88,7 +88,7 @@ export default function Settings() {
 
         <div className="space-y-8">
           {/* Profile Section */}
-          <section className="bg-surface p-8 rounded-2xl border border-secondary/50 shadow-xl">
+          <section className="bg-surface p-5 sm:p-8 rounded-2xl border border-secondary/50 shadow-xl">
             <h2 className="text-xl font-semibold text-white mb-6 flex items-center">
               <span className="w-1.5 h-6 bg-accent rounded-full mr-3"></span>
               기본 정보 수정
@@ -124,7 +124,7 @@ export default function Settings() {
           </section>
 
           {/* Password Section */}
-          <section className="bg-surface p-8 rounded-2xl border border-secondary/50 shadow-xl">
+          <section className="bg-surface p-5 sm:p-8 rounded-2xl border border-secondary/50 shadow-xl">
             <h2 className="text-xl font-semibold text-white mb-6 flex items-center">
               <span className="w-1.5 h-6 bg-accent rounded-full mr-3"></span>
               비밀번호 변경

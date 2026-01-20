@@ -13,7 +13,7 @@ export default function PostHeader({ post, isOwner, onDelete }) {
   };
 
   return (
-    <article className="bg-surface rounded-xl shadow-lg p-8 mb-8 border border-secondary/50">
+    <article className="bg-surface rounded-xl shadow-lg p-5 sm:p-8 mb-8 border border-secondary/50">
       <header className="mb-6 border-b border-secondary pb-6">
         <h1 className="text-3xl font-bold text-white mb-4">{post.title}</h1>
         <div className="flex items-center justify-between">
