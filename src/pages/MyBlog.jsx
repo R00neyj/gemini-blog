@@ -124,9 +124,9 @@ export default function MyBlog() {
   }
 
   return (
-    <div className="min-h-screen p-6 pt-24">
+    <div className="min-h-screen p-6 pt-24 animate-fade-in">
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 animate-slide-up">
           <div className="flex items-center space-x-4">
              <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-accent">
                 <img 
@@ -154,18 +154,18 @@ export default function MyBlog() {
         </div>
 
         {posts.length === 0 ? (
-          <div className="text-center py-20 bg-surface rounded-xl shadow-sm border border-dashed border-gray-600">
+          <div className="text-center py-20 bg-surface rounded-xl shadow-sm border border-dashed border-gray-600 animate-slide-up-delay">
             <p className="text-gray-400 text-lg mb-4">아직 작성한 글이 없습니다.</p>
             {isOwner && (
                <Link to="/write" className="text-accent hover:underline font-medium">첫 글을 작성해보세요!</Link>
             )}
           </div>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-6 animate-slide-up-delay">
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl transition-all p-6 border border-secondary/50"
+                className="block bg-surface rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-6 border border-secondary/50"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
@@ -189,10 +189,10 @@ export default function MyBlog() {
                   {post.content}
                 </p>
                 
-                <div className="flex items-center justify-end space-x-3 pt-4 border-t border-secondary/50">
+                <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-secondary/50">
                   <Link 
                     to={`/post/${post.id}`}
-                    className="text-gray-400 hover:text-white text-sm font-medium"
+                    className="text-gray-400 hover:text-white text-sm font-medium whitespace-nowrap"
                   >
                     보기
                   </Link>
@@ -200,13 +200,13 @@ export default function MyBlog() {
                     <>
                       <Link 
                         to={`/post/${post.id}/edit`}
-                        className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                        className="text-blue-400 hover:text-blue-300 text-sm font-medium whitespace-nowrap"
                       >
                         수정
                       </Link>
                       <button
                         onClick={(e) => handleDeletePost(e, post.id)}
-                        className="text-red-400 hover:text-red-300 text-sm font-medium"
+                        className="text-red-400 hover:text-red-300 text-sm font-medium whitespace-nowrap"
                       >
                         삭제
                       </button>
