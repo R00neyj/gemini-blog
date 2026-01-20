@@ -189,10 +189,10 @@ export default function MyBlog() {
                   {post.content}
                 </p>
                 
-                <div className="flex items-center justify-end space-x-3 pt-4 border-t border-secondary/50">
+                <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-secondary/50">
                   <Link 
                     to={`/post/${post.id}`}
-                    className="text-gray-400 hover:text-white text-sm font-medium"
+                    className="text-gray-400 hover:text-white text-sm font-medium whitespace-nowrap"
                   >
                     보기
                   </Link>
@@ -200,13 +200,13 @@ export default function MyBlog() {
                     <>
                       <Link 
                         to={`/post/${post.id}/edit`}
-                        className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                        className="text-blue-400 hover:text-blue-300 text-sm font-medium whitespace-nowrap"
                       >
                         수정
                       </Link>
                       <button
                         onClick={(e) => handleDeletePost(e, post.id)}
-                        className="text-red-400 hover:text-red-300 text-sm font-medium"
+                        className="text-red-400 hover:text-red-300 text-sm font-medium whitespace-nowrap"
                       >
                         삭제
                       </button>
