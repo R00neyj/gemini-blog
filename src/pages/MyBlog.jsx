@@ -126,9 +126,9 @@ export default function MyBlog() {
   return (
     <div className="min-h-screen p-6 pt-24">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6">
           <div className="flex items-center space-x-4">
-             <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-accent">
+             <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-accent">
                 <img 
                   src={blogOwner?.avatar_url || defaultAvatar} 
                   alt="profile" 
@@ -136,8 +136,8 @@ export default function MyBlog() {
                 />
              </div>
              <div>
-                <h1 className="text-3xl font-bold text-white">{blogOwner?.username}님의 블로그</h1>
-                <p className="text-gray-400 mt-1">
+                <h1 className="text-2xl sm:text-3xl font-bold text-white break-all">{blogOwner?.username}님의 블로그</h1>
+                <p className="text-gray-400 mt-1 text-sm sm:text-base">
                   {isOwner ? '내가 작성한 모든 글을 관리합니다.' : `${blogOwner?.username}님이 공유한 이야기들입니다.`}
                 </p>
              </div>
@@ -146,7 +146,7 @@ export default function MyBlog() {
           {isOwner && (
             <Link 
               to="/write" 
-              className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-secondary transition-colors font-medium shadow-sm hover:shadow-accent/20"
+              className="w-full sm:w-auto px-6 py-2.5 bg-accent text-white rounded-lg hover:bg-secondary transition-colors font-bold shadow-sm hover:shadow-accent/20 text-center"
             >
               새 글 쓰기
             </Link>
