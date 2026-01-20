@@ -8,6 +8,7 @@ import Write from './pages/Write';
 import PostDetail from './pages/PostDetail';
 import PostEdit from './pages/PostEdit';
 import MyBlog from './pages/MyBlog';
+import Settings from './pages/Settings';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -51,6 +52,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <MyBlog />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
               </ProtectedRoute>
             }
           />

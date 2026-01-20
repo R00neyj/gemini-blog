@@ -40,6 +40,9 @@ export default function Navbar() {
                 >
                   내 블로그
                 </Link>
+                <Link to="/settings" className="text-gray-300 hover:text-accent font-medium transition-colors">
+                  설정
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="px-4 py-2 border border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all text-sm font-medium"
@@ -110,6 +113,13 @@ export default function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   내 블로그
+                </Link>
+                <Link
+                  to="/settings"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-accent hover:bg-surface"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  설정
                 </Link>
                 <button
                   onClick={() => {
