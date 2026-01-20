@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 
+import defaultAvatar from '../assets/Profile.png';
+
 export default function MyBlog() {
   const { username } = useParams();
   const { user } = useAuth();
@@ -126,12 +128,12 @@ export default function MyBlog() {
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center space-x-4">
-             <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold overflow-hidden border-2 border-accent">
-                {blogOwner?.avatar_url ? (
-                  <img src={blogOwner.avatar_url} alt="profile" className="w-full h-full object-cover" />
-                ) : (
-                  blogOwner?.username?.[0]?.toUpperCase() || 'U'
-                )}
+             <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-accent">
+                <img 
+                  src={blogOwner?.avatar_url || defaultAvatar} 
+                  alt="profile" 
+                  className="w-full h-full object-cover" 
+                />
              </div>
              <div>
                 <h1 className="text-3xl font-bold text-white">{blogOwner?.username}님의 블로그</h1>

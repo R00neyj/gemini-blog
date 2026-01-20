@@ -13,7 +13,12 @@ export default defineConfig({
         name: 'Gemini Community Blog',
         short_name: 'GeminiBlog',
         description: 'Gemini Community Blog Application',
-        theme_color: '#ffffff',
+        theme_color: '#222222',
+        background_color: '#222222',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
+        orientation: 'portrait',
         icons: [
           {
             src: 'pwa-192x192.png',

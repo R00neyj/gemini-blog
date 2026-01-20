@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
 
+import defaultAvatar from '../assets/Profile.png';
+
 export default function Navbar() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -44,8 +46,12 @@ export default function Navbar() {
                 >
                   로그아웃
                 </button>
-                <div className="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold border border-accent">
-                   {user.user_metadata?.username?.[0]?.toUpperCase() || 'U'}
+                <div className="w-8 h-8 rounded-full bg-secondary overflow-hidden border border-accent">
+                   <img 
+                     src={user.user_metadata?.avatar_url || defaultAvatar} 
+                     alt="User Avatar" 
+                     className="w-full h-full object-cover"
+                   />
                 </div>
               </>
             ) : (
