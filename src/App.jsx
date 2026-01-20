@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
+import UpdatePassword from './pages/UpdatePassword';
 import Write from './pages/Write';
 import PostDetail from './pages/PostDetail';
 import PostEdit from './pages/PostEdit';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
           
           {/* Protected Routes */}
           <Route
