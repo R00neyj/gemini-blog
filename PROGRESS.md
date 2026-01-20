@@ -46,6 +46,7 @@
 
 ## 8. 최적화 및 배포 (Refinement & Deployment)
 - [x] **UI 개선:** 내비게이션 바 메뉴(홈, 글쓰기, 내 블로그, 설정)에 아이콘 추가
+- [x] **UI 개선:** 프리미엄 애니메이션 추가 (Fade-in, Slide-up, Hover Effects)
 - [ ] 전반적인 UI/UX 폴리싱
 - [ ] 버그 수정 및 테스트
 - [ ] 최종 빌드 확인 (`npm run build`)

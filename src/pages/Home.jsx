@@ -49,7 +49,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-6 pt-24 relative">
+    <div className="min-h-screen p-6 pt-24 relative animate-fade-in">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">최신 글</h1>
@@ -60,11 +60,11 @@ export default function Home() {
             <p className="text-gray-400 text-lg">아직 작성된 글이 없습니다.</p>
           </div>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-6 animate-slide-up">
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all p-6 border border-secondary/50 hover:border-accent"
+                className="block bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1 p-6 border border-secondary/50 hover:border-accent"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -113,7 +113,7 @@ export default function Home() {
       {/* QR Code Floating Action Button */}
       <button
         onClick={() => setShowQrModal(true)}
-        className="fixed bottom-8 right-8 p-4 bg-accent text-white rounded-full shadow-lg hover:bg-blue-600 transition-all z-40 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-accent/50"
+        className="fixed bottom-8 right-8 p-4 bg-accent text-white rounded-full shadow-lg hover:bg-blue-600 transition-all z-40 hover:scale-110 animate-float focus:outline-none focus:ring-4 focus:ring-accent/50"
         aria-label="모바일 설치 QR코드 보기"
         title="모바일에서 보기"
       >
@@ -128,7 +128,7 @@ export default function Home() {
       {/* QR Code Modal */}
       {showQrModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setShowQrModal(false)}>
-          <div className="bg-surface p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center relative border border-secondary" onClick={e => e.stopPropagation()}>
+          <div className="bg-surface p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center relative border border-secondary animate-scale-in" onClick={e => e.stopPropagation()}>
             <button 
               onClick={() => setShowQrModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
