@@ -48,6 +48,7 @@
 - [x] **UI 개선:** 내비게이션 바 메뉴(홈, 글쓰기, 내 블로그, 설정)에 아이콘 추가
 - [x] **UI 개선:** 프리미엄 애니메이션 추가 (Fade-in, Slide-up, Hover Effects, Mobile Menu Slide-down)
 - [x] **UI 최적화:** 모바일 화면에서 불필요한 QR FAB 버튼 숨김 처리
-- [ ] 전반적인 UI/UX 폴리싱
+- [x] **UX 개선:** Native Alert/Confirm을 Toast 알림(`react-hot-toast`)으로 교체
+- [x] **Refactoring:** 게시글 상세 페이지(`PostDetail`) 컴포넌트 분리 (`PostHeader`, `CommentSection`)
 - [ ] 버그 수정 및 테스트
 - [ ] 최종 빌드 확인 (`npm run build`)

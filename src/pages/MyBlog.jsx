@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -72,6 +73,7 @@ export default function MyBlog() {
     } catch (err) {
       console.error('Error fetching blog data:', err.message);
       setError('블로그 정보를 불러오는 중 오류가 발생했습니다.');
+      toast.error('블로그 정보를 불러오는 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
@@ -90,8 +92,9 @@ export default function MyBlog() {
       if (error) throw error;
       
       setPosts(posts.filter(post => post.id !== postId));
+      toast.success('게시글이 삭제되었습니다.');
     } catch (err) {
-      alert('삭제 중 오류가 발생했습니다: ' + err.message);
+      toast.error('삭제 중 오류가 발생했습니다: ' + err.message);
     }
   };
 

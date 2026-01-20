@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -31,7 +32,7 @@ export default function PostEdit() {
 
       // Check ownership
       if (user && data.user_id !== user.id) {
-        alert('수정 권한이 없습니다.');
+        toast.error('수정 권한이 없습니다.');
         navigate('/');
         return;
       }
@@ -53,6 +54,7 @@ export default function PostEdit() {
 
     if (!title.trim() || !content.trim()) {
       setError('제목과 내용을 모두 입력해주세요.');
+      toast.error('제목과 내용을 모두 입력해주세요.');
       setSaving(false);
       return;
     }
@@ -70,9 +72,11 @@ export default function PostEdit() {
 
       if (error) throw error;
 
+      toast.success('게시글이 수정되었습니다.');
       navigate(`/post/${id}`);
     } catch (err) {
       setError(err.message);
+      toast.error('수정 중 오류가 발생했습니다: ' + err.message);
     } finally {
       setSaving(false);
     }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Signup() {
@@ -30,8 +31,9 @@ export default function Signup() {
     if (error) {
       setError(error.message);
       setLoading(false);
+      toast.error('회원가입 실패: ' + error.message);
     } else {
-      alert('회원가입 확인 이메일을 확인해주세요!');
+      toast.success('회원가입 확인 이메일을 확인해주세요!');
       navigate('/login');
     }
   };

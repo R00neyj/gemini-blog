@@ -38,8 +38,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext value={value}>
       {!loading && children}
-    </AuthContext.Provider>
+    </AuthContext>
   );
 };
