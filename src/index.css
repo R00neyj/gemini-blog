@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #222222;
+  --color-secondary: #334155;
+  --color-accent: #3B82F6;
+  
+  /* Additional Dark Mode Colors based on palette */
+  --color-surface: #2d2d2d; /* Slightly lighter than primary for cards */
+  --color-text-main: #F8FAFC; /* Slate 50 */
+  --color-text-muted: #94A3B8; /* Slate 400 */
+}
+
+/* Custom Base Styles */
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text-main);
+}
+
+/* Inputs and forms override */
+input, textarea {
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+  border-color: var(--color-secondary);
+}
