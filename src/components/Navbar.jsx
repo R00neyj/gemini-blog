@@ -87,7 +87,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden bg-primary border-t border-secondary animate-slide-down">
+        <div className="sm:hidden bg-primary border-t border-secondary animate-slide-down origin-top">
           <div className="pt-2 pb-3 space-y-1 px-4">
             <Link to="/" className="px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-accent hover:bg-surface flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
