@@ -102,7 +102,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden bg-primary border-t border-secondary">
+        <div className="sm:hidden bg-primary border-t border-secondary animate-slide-down">
           <div className="pt-2 pb-3 space-y-1 px-4">
             <Link
               to="/"
