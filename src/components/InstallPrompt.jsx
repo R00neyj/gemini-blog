@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import qrcodeImg from '../assets/qrcode.png';
 
 export default function InstallPrompt() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
+  const [isIOS] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  });
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const location = useLocation();
 
   useEffect(() => {
-    // Detect iOS
-    const isIosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    setIsIOS(isIosDevice);
-
     // Capture install prompt
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
@@ -48,7 +45,7 @@ export default function InstallPrompt() {
       {/* FAB */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-3.5 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
+        className="p-3 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
         aria-label="앱 설치 안내"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

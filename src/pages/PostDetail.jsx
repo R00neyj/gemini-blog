@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
@@ -16,11 +16,7 @@ export default function PostDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchPostAndComments();
-  }, [id]);
-
-  const fetchPostAndComments = async () => {
+  const fetchPostAndComments = useCallback(async () => {
     try {
       setLoading(true);
       // Fetch Post
@@ -55,7 +51,11 @@ export default function PostDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchPostAndComments();
+  }, [fetchPostAndComments]);
 
   const handleDeletePost = async () => {
     if (!window.confirm('정말로 이 글을 삭제하시겠습니까?')) return;

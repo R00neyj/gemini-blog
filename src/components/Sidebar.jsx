@@ -1,9 +1,20 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Sidebar({ isExpanded, setIsExpanded }) {
+  const { user } = useAuth();
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path;
+  const username = user?.user_metadata?.username;
+  const myBlogPath = username ? `/blog/${username}` : "/my-blog";
+
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    if (path === "/my-blog" || path.startsWith("/blog/")) {
+      return location.pathname === "/my-blog" || location.pathname.startsWith("/blog/");
+    }
+    return location.pathname.startsWith(path);
+  };
 
   const navItems = [
     { path: "/", label: "홈", icon: (
@@ -16,7 +27,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
       </svg>
     )},
-    { path: "/my-blog", label: "내 블로그", icon: (
+    { path: myBlogPath, label: "내 블로그", icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
       </svg>
@@ -36,12 +47,14 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
       }`}
     >
       {/* Logo */}
-      <div className={`mb-10 w-full flex ${isExpanded ? "px-4" : "justify-center"}`}>
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
-            G
-          </div>
-          <span className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 transition-all duration-300 whitespace-nowrap overflow-hidden ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
+      <div className={`mb-10 w-full flex ${isExpanded ? "px-6" : "justify-center"}`}>
+        <Link to="/" className={`flex items-center group ${isExpanded ? "gap-3" : "gap-0"}`}>
+          <img 
+            src="/pwa-192x192.png" 
+            alt="Logo" 
+            className="w-10 h-10 rounded-xl object-contain shadow-lg shrink-0 transition-transform group-hover:scale-105" 
+          />
+          <span className={`font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 transition-all duration-300 whitespace-nowrap overflow-hidden ${isExpanded ? "w-auto opacity-100 ml-3 text-xl" : "w-0 opacity-0 ml-0 text-[0px]"}`}>
             Gemini Blog
           </span>
         </Link>

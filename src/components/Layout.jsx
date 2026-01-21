@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import BottomNav from './BottomNav';
 import InstallPrompt from './InstallPrompt';
+import DesktopQrButton from './DesktopQrButton';
 
 export default function Layout() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -31,6 +32,11 @@ export default function Layout() {
       <div className="fixed bottom-6 left-8 right-8 max-w-md mx-auto z-50 flex items-center gap-3 md:hidden animate-slide-up">
         <BottomNav />
         <InstallPrompt />
+      </div>
+
+      {/* Desktop QR/Install Button (Bottom Right) */}
+      <div className="hidden md:block fixed bottom-8 right-8 z-50 animate-fade-in">
+        <DesktopQrButton />
       </div>
     </div>
   );
