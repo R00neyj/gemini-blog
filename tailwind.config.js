@@ -9,7 +9,7 @@ export default {
       colors: {
         primary: "#0D1326",
         secondary: "#1E293B", // Slightly lighter for surfaces
-        accent: "#3B82F6",    // Brighter blue for better contrast
+        accent: "#4164db",    // Updated blue accent
         surface: "#111827",   // Card background
         background: "#0F172A", // Main background
       },

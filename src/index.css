@@ -3,7 +3,7 @@
 @theme {
   --color-primary: #191919;
   --color-secondary: #37352f1f; /* Notion-like subtle divider/border */
-  --color-accent: #2eaadc;    /* Notion-like blue accent */
+  --color-accent: #4164db;    /* Updated blue accent */
   
   /* Additional Dark Mode Colors based on palette */
   --color-surface: #202020; /* Slightly lighter for cards/surfaces */
