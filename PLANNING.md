@@ -99,5 +99,14 @@ Supabase Auth의 `users` 테이블과 연동되는 프로필 테이블
    - 고급스러운 인터랙션 애니메이션 (Fade-in, Slide-up, Hover).
    - 스타일링 및 사용자 경험 최적화.
    - **반응형 네비게이션 구조 개편:**
-     - **PC/Desktop:** 좌측 고정 사이드바(Sidebar) 형태로 변경 (폭 64-80px, 아이콘 중심).
-     - **Mobile:** 최신 Apple UI 스타일의 하단 플로팅 네비게이션 바(Floating Bottom Bar) 적용 (Glassmorphism, 둥근 모서리).
+     - **PC/Desktop:** 좌측 고정 사이드바(Sidebar).
+       - **Collapse Mode:** 너비 축소, 아이콘만 표시.
+       - **Expand Mode:** 너비 확장, 아이콘 + 텍스트 라벨 표시. 토글 버튼 제공.
+     - **Mobile:** 최신 Apple UI 스타일의 하단 플로팅 네비게이션 바(BottomNav).
+       - 심플한 디자인: 떠오르는 효과 제거, 색상 강조 위주.
+       - 고급스러운 Glassmorphism 적용.
+       - **디자인 디테일:** 완전한 둥근 모서리(Rounded-full), 아이템 간 균등 간격(Grid/Justify-around) 적용.
+       - **PWA Install FAB:** 화면 우측 하단 플로팅 버튼. 네비바와 우측 여백을 통일하여 시각적 균형 유지.
+
+9. **추후 구현 예정 (Future Features):**
+   - **프로필 아이콘 커스터마이징:** 다양한 모양(원형, 사각형, 육각형 등) 중 선택 가능하도록 설정 추가.

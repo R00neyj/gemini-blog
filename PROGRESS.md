@@ -12,9 +12,10 @@
 - [x] **UI/UX 개선**
   - [x] `Layout` 컴포넌트 도입으로 구조 리팩토링
   - [x] **반응형 네비게이션 구조 개편 완료**
-    - [x] Desktop: 좌측 고정 `Sidebar` (아이콘 중심, 확장 가능성 고려)
-    - [x] Mobile: 하단 플로팅 `BottomNav` (Apple UI 스타일, Glassmorphism)
-    - [x] `Layout`에서 반응형 분기 처리 완료
+    - [x] Desktop: 좌측 고정 `Sidebar` (토글 애니메이션 최적화)
+    - [x] Mobile: 하단 플로팅 `BottomNav` (Apple UI 스타일, 둥근 모서리, 균등 간격)
+    - [x] Mobile: **PWA 설치 안내 FAB** (네비바와 정렬 통일, 고급스러운 디자인)
+    - [x] `Layout` 동적 여백 처리
 
 ## 🚧 진행 중인 작업 (In Progress)
 - **PWA 및 모바일 최적화**

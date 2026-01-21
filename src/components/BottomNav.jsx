@@ -24,12 +24,6 @@ export default function BottomNav() {
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
-      )},
-      { path: "/settings", label: "설정", icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
       )}
     ] : [
       { path: "/login", label: "로그인", icon: (
@@ -41,31 +35,28 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-primary/80 backdrop-blur-md border border-white/10 rounded-full shadow-2xl z-50 flex items-center justify-around px-2 py-3 md:hidden animate-slide-up">
+    <nav className={`w-full bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl grid ${user ? 'grid-cols-4' : 'grid-cols-2'} items-center px-2 py-3`}>
       {navItems.map((item) => (
         <Link
           key={item.path}
           to={item.path}
-          className={`p-3 rounded-full transition-all duration-300 relative ${
+          className={`flex flex-col items-center gap-1 transition-colors duration-200 ${
             isActive(item.path)
-              ? "text-white bg-accent shadow-lg shadow-accent/30 -translate-y-2 scale-110"
-              : "text-gray-400 hover:text-white"
+              ? "text-accent"
+              : "text-gray-400 active:text-gray-200"
           }`}
         >
           {item.icon}
-          {isActive(item.path) && (
-            <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-accent whitespace-nowrap opacity-0 animate-fade-in">
-              {item.label}
-            </span>
-          )}
+          <span className="text-[10px] font-medium">{item.label}</span>
         </Link>
       ))}
       
       {user && (
-         <Link to="/settings" className="p-1">
-            <div className={`w-9 h-9 rounded-full overflow-hidden border-2 transition-colors ${isActive('/settings') ? 'border-accent' : 'border-transparent'}`}>
+         <Link to="/settings" className="flex flex-col items-center gap-1">
+            <div className={`w-6 h-6 rounded-full overflow-hidden border transition-colors ${isActive('/settings') ? 'border-accent' : 'border-transparent'}`}>
                 <img src={user.user_metadata?.avatar_url || defaultAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
+            <span className={`text-[10px] font-medium ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
          </Link>
       )}
     </nav>
