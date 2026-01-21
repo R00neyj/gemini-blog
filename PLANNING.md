@@ -98,3 +98,6 @@ Supabase Auth의 `users` 테이블과 연동되는 프로필 테이블
    - 내비게이션 바 아이콘 적용.
    - 고급스러운 인터랙션 애니메이션 (Fade-in, Slide-up, Hover).
    - 스타일링 및 사용자 경험 최적화.
+   - **반응형 네비게이션 구조 개편:**
+     - **PC/Desktop:** 좌측 고정 사이드바(Sidebar) 형태로 변경 (폭 64-80px, 아이콘 중심).
+     - **Mobile:** 최신 Apple UI 스타일의 하단 플로팅 네비게이션 바(Floating Bottom Bar) 적용 (Glassmorphism, 둥근 모서리).
