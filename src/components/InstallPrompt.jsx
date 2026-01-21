@@ -48,7 +48,7 @@ export default function InstallPrompt() {
       {/* FAB */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-3 bg-gradient-to-tr from-accent to-blue-400 text-white rounded-full shadow-xl shadow-accent/30 border border-white/20 hover:scale-105 active:scale-95 transition-all duration-300 flex-shrink-0"
+        className="p-3.5 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
         aria-label="앱 설치 안내"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,8 +58,14 @@ export default function InstallPrompt() {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
-          <div className="bg-primary border border-secondary rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-slide-up">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={() => setIsOpen(false)}
+        >
+          <div 
+            className="bg-primary border border-secondary rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-slide-up"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button 
               onClick={() => setIsOpen(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-white"

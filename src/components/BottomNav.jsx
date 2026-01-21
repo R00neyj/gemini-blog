@@ -35,14 +35,14 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className={`w-full bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl grid ${user ? 'grid-cols-4' : 'grid-cols-2'} items-center px-2 py-3`}>
+    <nav className={`w-full bg-black/40 backdrop-blur-xl border border-white/5 rounded-full shadow-2xl grid ${user ? 'grid-cols-4' : 'grid-cols-2'} items-center px-2 py-2`}>
       {navItems.map((item) => (
         <Link
           key={item.path}
           to={item.path}
-          className={`flex flex-col items-center gap-1 transition-colors duration-200 ${
+          className={`flex flex-col items-center gap-0.5 transition-all duration-200 px-3 py-1.5 rounded-3xl ${
             isActive(item.path)
-              ? "text-accent"
+              ? "text-accent bg-white/10"
               : "text-gray-400 active:text-gray-200"
           }`}
         >
@@ -52,7 +52,7 @@ export default function BottomNav() {
       ))}
       
       {user && (
-         <Link to="/settings" className="flex flex-col items-center gap-1">
+         <Link to="/settings" className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-3xl transition-all duration-200 ${isActive('/settings') ? 'bg-white/10' : ''}`}>
             <div className={`w-6 h-6 rounded-full overflow-hidden border transition-colors ${isActive('/settings') ? 'border-accent' : 'border-transparent'}`}>
                 <img src={user.user_metadata?.avatar_url || defaultAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>

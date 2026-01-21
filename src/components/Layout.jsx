@@ -8,7 +8,11 @@ export default function Layout() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   return (
-    <div className="min-h-screen bg-primary text-gray-100 font-sans flex">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-[#1a1a1a] to-[#0f0f0f] text-gray-100 font-sans flex relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
       {/* Desktop Sidebar */}
       <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} />
 

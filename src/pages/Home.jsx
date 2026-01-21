@@ -114,7 +114,7 @@ export default function Home() {
       {/* QR Code Floating Action Button - Hidden on mobile, shown on desktop */}
       <button
         onClick={() => setShowQrModal(true)}
-        className="hidden sm:flex fixed bottom-8 right-8 p-4 bg-accent text-white rounded-full shadow-lg hover:bg-blue-600 transition-all z-40 hover:scale-110 animate-float focus:outline-none focus:ring-4 focus:ring-accent/50"
+        className="hidden sm:flex fixed bottom-8 right-8 p-4 bg-white/5 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/10 transition-all z-40 hover:scale-110 animate-float focus:outline-none"
         aria-label="모바일 설치 QR코드 보기"
         title="모바일에서 보기"
       >
