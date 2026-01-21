@@ -19,7 +19,7 @@ export default function Settings() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", content: "" });
 
-  const emojis = ["🚀", "⭐", "🔥", "💎", "🌈", "🍀", "🐱", "🐶", "🦊", "🎨", "💻", "☕", "🎮", "⚽", "🍔"];
+  const emojis = ["🚀", "⭐", "🔥", "💎", "🌈", "🍀", "🐱", "🐶", "🦊", "🎨", "💻", "☕", "🎮", "⚽", "🍔", "😎", "🤔", "👀", "✨", "🎉", "💡", "📚", "🎵", "🎬", "✈️", "🍕", "🍦", "🍺", "🍷", "🥃"];
   const symbols = ["favorite", "star", "bolt", "auto_awesome", "rocket_launch", "computer", "palette", "menu_book", "home", "person", "settings", "notifications"];
   const bgColors = [
     { name: "Blue", class: "bg-blue-500" },

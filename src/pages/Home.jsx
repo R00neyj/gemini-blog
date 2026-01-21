@@ -2,13 +2,22 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import Avatar from '../components/Avatar';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     fetchPosts();
+    
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(timer);
   }, []);
 
   const fetchPosts = async () => {
@@ -51,6 +60,9 @@ export default function Home() {
     <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24 relative animate-fade-in">
       <div className="max-w-5xl mx-auto">
         <header className="mb-8 animate-slide-up">
+          <div className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">
+            {format(currentTime, 'yyyy년 M월 d일 HH:mm', { locale: ko })}
+          </div>
           <h1 className="text-3xl font-bold text-white mb-2">오늘의 이야기</h1>
           <p className="text-gray-400">Geminist들이 공유하는 최신 글들을 만나보세요.</p>
         </header>

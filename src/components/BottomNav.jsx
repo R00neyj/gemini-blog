@@ -47,7 +47,7 @@ export default function BottomNav() {
           }`}
         >
           {item.icon}
-          <span className="text-[10px] font-medium whitespace-nowrap">{item.label}</span>
+          <span className="text-xs font-medium whitespace-nowrap">{item.label}</span>
         </Link>
       ))}
       
@@ -59,7 +59,7 @@ export default function BottomNav() {
               size="xs" 
               className={isActive('/settings') ? 'border-accent' : 'border-transparent'} 
             />
-            <span className={`text-[10px] font-medium whitespace-nowrap ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
+            <span className={`text-xs font-medium whitespace-nowrap ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
          </Link>
       )}
     </nav>
