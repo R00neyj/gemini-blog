@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import Avatar from '../Avatar';
+import MDEditor from '@uiw/react-md-editor';
 
 export default function PostHeader({ post, isOwner, onDelete }) {
   const formatDate = (dateString) => {
@@ -19,13 +21,12 @@ export default function PostHeader({ post, isOwner, onDelete }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
              <Link to={post.profiles?.username ? `/blog/${post.profiles.username}` : '#'} className="block">
-               <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-gray-300 font-bold overflow-hidden border border-accent/30 hover:border-accent transition-colors">
-                  {post.profiles?.avatar_url ? (
-                    <img src={post.profiles.avatar_url} alt="profile" className="w-full h-full object-cover" />
-                  ) : (
-                    post.profiles?.username?.[0]?.toUpperCase() || 'U'
-                  )}
-               </div>
+               <Avatar 
+                 src={post.profiles?.avatar_url} 
+                 alt="profile" 
+                 size="md" 
+                 className="border-accent/30 hover:border-accent transition-colors" 
+               />
              </Link>
             <div>
               <Link 
@@ -57,8 +58,8 @@ export default function PostHeader({ post, isOwner, onDelete }) {
         </div>
       </header>
       
-      <div className="prose max-w-none text-gray-300 whitespace-pre-wrap leading-relaxed">
-        {post.content}
+      <div className="prose max-w-none text-gray-300 whitespace-pre-wrap leading-relaxed" data-color-mode="dark">
+        <MDEditor.Markdown source={post.content} style={{ backgroundColor: 'transparent', color: 'inherit' }} />
       </div>
     </article>
   );

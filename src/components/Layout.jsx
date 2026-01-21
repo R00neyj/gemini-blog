@@ -29,7 +29,7 @@ export default function Layout() {
       </main>
 
       {/* Mobile Bottom Area */}
-      <div className="fixed bottom-6 left-8 right-8 max-w-md mx-auto z-50 flex items-center gap-3 md:hidden animate-slide-up">
+      <div className="fixed bottom-6 left-8 right-8 max-w-lg mx-auto z-50 flex items-center gap-3 md:hidden animate-slide-up">
         <BottomNav />
         <InstallPrompt />
       </div>

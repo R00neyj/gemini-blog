@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
+import Avatar from '../components/Avatar';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -68,13 +69,12 @@ export default function Home() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <Link to={post.profiles?.username ? `/blog/${post.profiles.username}` : '#'} className="block">
-                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-gray-300 font-bold overflow-hidden border border-accent/30 hover:border-accent transition-colors">
-                        {post.profiles?.avatar_url ? (
-                          <img src={post.profiles.avatar_url} alt="profile" className="w-full h-full object-cover" />
-                        ) : (
-                          post.profiles?.username?.[0]?.toUpperCase() || 'U'
-                        )}
-                      </div>
+                      <Avatar 
+                        src={post.profiles?.avatar_url} 
+                        alt="profile" 
+                        size="md" 
+                        className="hover:border-accent transition-colors" 
+                      />
                     </Link>
                     <div>
                       <Link 

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Avatar from '../Avatar';
 
 export default function CommentSection({ comments, user, newComment, onCommentChange, onSubmit, onDelete }) {
   const formatDate = (dateString) => {
@@ -20,13 +21,12 @@ export default function CommentSection({ comments, user, newComment, onCommentCh
       <div className="space-y-6 mb-8">
         {comments.map((comment) => (
           <div key={comment.id} className="flex space-x-4 p-4 bg-primary/50 rounded-lg border border-secondary/30">
-             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-gray-300 font-bold text-xs overflow-hidden border border-accent/20">
-                {comment.profiles?.avatar_url ? (
-                  <img src={comment.profiles.avatar_url} alt="profile" className="w-full h-full object-cover" />
-                ) : (
-                  comment.profiles?.username?.[0]?.toUpperCase() || 'U'
-                )}
-             </div>
+             <Avatar 
+               src={comment.profiles?.avatar_url} 
+               alt="profile" 
+               size="sm" 
+               className="border-accent/20" 
+             />
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
                 <span className="font-medium text-sm text-white">{comment.profiles?.username || 'Unknown'}</span>

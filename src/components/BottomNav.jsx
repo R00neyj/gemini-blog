@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import defaultAvatar from "../assets/Profile.png";
+import Avatar from "./Avatar";
 
 export default function BottomNav() {
   const { user } = useAuth();
@@ -40,23 +40,26 @@ export default function BottomNav() {
         <Link
           key={item.path}
           to={item.path}
-          className={`flex flex-col items-center gap-0.5 transition-all duration-200 px-3 py-1 rounded-full ${
+          className={`flex flex-col items-center gap-0.5 transition-all duration-200 px-2 py-1 rounded-full ${
             isActive(item.path)
               ? "text-accent bg-white/10"
               : "text-gray-400 active:text-gray-200"
           }`}
         >
           {item.icon}
-          <span className="text-[10px] font-medium">{item.label}</span>
+          <span className="text-[10px] font-medium whitespace-nowrap">{item.label}</span>
         </Link>
       ))}
       
       {user && (
-         <Link to="/settings" className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-full transition-all duration-200 ${isActive('/settings') ? 'bg-white/10' : ''}`}>
-            <div className={`w-6 h-6 rounded-full overflow-hidden border transition-colors ${isActive('/settings') ? 'border-accent' : 'border-transparent'}`}>
-                <img src={user.user_metadata?.avatar_url || defaultAvatar} alt="Profile" className="w-full h-full object-cover" />
-            </div>
-            <span className={`text-[10px] font-medium ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
+         <Link to="/settings" className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-full transition-all duration-200 ${isActive('/settings') ? 'bg-white/10' : ''}`}>
+            <Avatar 
+              src={user.user_metadata?.avatar_url} 
+              alt="Profile" 
+              size="xs" 
+              className={isActive('/settings') ? 'border-accent' : 'border-transparent'} 
+            />
+            <span className={`text-[10px] font-medium whitespace-nowrap ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
          </Link>
       )}
     </nav>

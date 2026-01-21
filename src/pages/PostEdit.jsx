@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
+import MDEditor from '@uiw/react-md-editor';
 
 export default function PostEdit() {
   const { id } = useParams();
@@ -110,17 +111,15 @@ export default function PostEdit() {
             />
           </div>
 
-          <div>
+          <div data-color-mode="dark">
             <label htmlFor="content" className="block text-sm font-medium text-gray-300 mb-1">
               내용
             </label>
-            <textarea
-              id="content"
+            <MDEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={12}
-              className="w-full px-4 py-2 border border-secondary bg-primary text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all resize-none placeholder-gray-500"
-              required
+              onChange={setContent}
+              height={400}
+              className="border border-secondary rounded-lg overflow-hidden"
             />
           </div>
 

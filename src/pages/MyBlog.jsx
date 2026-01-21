@@ -3,8 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
-
-import defaultAvatar from '../assets/Profile.png';
+import Avatar from '../components/Avatar';
 
 export default function MyBlog() {
   const { username } = useParams();
@@ -130,13 +129,12 @@ export default function MyBlog() {
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 animate-slide-up">
           <div className="flex items-center space-x-4">
-             <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full bg-secondary flex items-center justify-center overflow-hidden border-2 border-accent">
-                <img 
-                  src={blogOwner?.avatar_url || defaultAvatar} 
-                  alt="profile" 
-                  className="w-full h-full object-cover" 
-                />
-             </div>
+             <Avatar 
+               src={blogOwner?.avatar_url} 
+               alt="profile" 
+               size="xl" 
+               className="border-2 border-accent" 
+             />
              <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white break-all">{blogOwner?.username}님의 블로그</h1>
                 <p className="text-gray-400 mt-1 text-sm sm:text-base">

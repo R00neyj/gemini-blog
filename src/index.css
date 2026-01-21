@@ -23,3 +23,18 @@ input, textarea {
   color: var(--color-text-main);
   border-color: var(--color-secondary);
 }
+
+/* Restore list styles for Markdown Editor Viewer */
+.wmde-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 1.5em !important;
+}
+
+.wmde-markdown ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5em !important;
+}
+
+.wmde-markdown li {
+  margin-bottom: 0.5em;
+}
