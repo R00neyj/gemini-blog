@@ -48,7 +48,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24 relative animate-fade-in">
+    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24 relative animate-fade-in">
       <div className="max-w-5xl mx-auto">
         <header className="mb-8 animate-slide-up">
           <h1 className="text-3xl font-bold text-white mb-2">오늘의 이야기</h1>

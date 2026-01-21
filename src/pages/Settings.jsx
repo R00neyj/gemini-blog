@@ -109,7 +109,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24">
+    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
       <div className="max-w-2xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold text-white mb-8">내 프로필 설정</h1>
 

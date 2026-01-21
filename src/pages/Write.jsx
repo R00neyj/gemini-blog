@@ -47,7 +47,7 @@ export default function Write() {
   };
 
   return (
-    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24">
+    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
       <div className="max-w-3xl mx-auto bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
         <h1 className="text-3xl font-bold text-white mb-8">새 글 작성</h1>
         

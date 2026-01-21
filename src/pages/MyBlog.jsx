@@ -125,7 +125,7 @@ export default function MyBlog() {
   }
 
   return (
-    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24 animate-fade-in">
+    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24 animate-fade-in">
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 animate-slide-up">
           <div className="flex items-center space-x-4">

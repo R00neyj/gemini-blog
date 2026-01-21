@@ -129,7 +129,7 @@ export default function PostDetail() {
   const isOwner = user && user.id === post.user_id;
 
   return (
-    <div className="min-h-screen p-4 pt-20 sm:p-6 sm:pt-24">
+    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
       <div className="max-w-3xl mx-auto">
         <PostHeader 
           post={post} 
