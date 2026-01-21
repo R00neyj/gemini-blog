@@ -60,7 +60,7 @@ export default function InstallPrompt() {
           onClick={() => setIsOpen(false)}
         >
           <div 
-            className="bg-primary border border-secondary rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-slide-up"
+            className="bg-surface border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-slide-up"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
@@ -88,12 +88,12 @@ export default function InstallPrompt() {
                 {deferredPrompt ? (
                    <button 
                     onClick={handleInstallClick}
-                    className="w-full py-3 bg-accent hover:bg-blue-600 text-white font-bold rounded-xl transition-colors"
+                    className="w-full py-3 bg-accent hover:bg-blue-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-accent/20"
                   >
                     지금 설치하기
                   </button>
                 ) : (
-                  <div className="bg-secondary/50 p-4 rounded-xl text-sm text-gray-300 border border-white/5">
+                  <div className="bg-white/5 p-4 rounded-xl text-sm text-gray-300 border border-white/5">
                     {isIOS ? (
                       <div className="space-y-3">
                         <p className="font-semibold text-accent flex items-center gap-2">
@@ -124,6 +124,14 @@ export default function InstallPrompt() {
                     )}
                   </div>
                 )}
+                
+                {/* Explicit Close Button for consistency */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-full py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold transition-all border border-white/10 active:scale-[0.98]"
+                >
+                  닫기
+                </button>
               </div>
             </div>
           </div>

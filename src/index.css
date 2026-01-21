@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #222222;
-  --color-secondary: #334155;
-  --color-accent: #3B82F6;
+  --color-primary: #191919;
+  --color-secondary: #37352f1f; /* Notion-like subtle divider/border */
+  --color-accent: #2eaadc;    /* Notion-like blue accent */
   
   /* Additional Dark Mode Colors based on palette */
-  --color-surface: #2d2d2d; /* Slightly lighter than primary for cards */
-  --color-text-main: #F8FAFC; /* Slate 50 */
-  --color-text-muted: #94A3B8; /* Slate 400 */
+  --color-surface: #202020; /* Slightly lighter for cards/surfaces */
+  --color-text-main: #FFFFFFE6; /* Notion-like off-white text */
+  --color-text-muted: #9B9B9B;  /* Notion-like muted text */
 }
 
 /* Custom Base Styles */

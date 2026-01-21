@@ -38,7 +38,10 @@ export default function DesktopQrButton() {
               <img src={qrCodeImg} alt="App QR Code" className="w-48 h-48 object-contain" />
             </div>
 
-            <button onClick={() => setShowQrModal(false)} className="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold transition-colors border border-white/5">
+            <button
+              onClick={() => setShowQrModal(false)}
+              className="w-full py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold transition-all border border-white/10 active:scale-[0.98]"
+            >
               닫기
             </button>
           </div>
