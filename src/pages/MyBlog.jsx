@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
@@ -18,21 +18,7 @@ export default function MyBlog() {
 
   const isOwner = user && blogOwner && user.id === blogOwner.id;
 
-  useEffect(() => {
-    // Handle redirect logic for /my-blog route
-    if (!username) {
-      if (user?.user_metadata?.username) {
-        navigate(`/blog/${user.user_metadata.username}`, { replace: true });
-      } else if (!user) {
-        navigate('/login');
-      }
-      return;
-    }
-
-    fetchBlogData();
-  }, [username, user]);
-
-  const fetchBlogData = async () => {
+  const fetchBlogData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -60,7 +46,6 @@ export default function MyBlog() {
         .order('created_at', { ascending: false });
 
       // If not owner, show only public posts
-      // Note: We check user.id against profile.id. Since user might be null, optional chaining is used.
       if (!user || user.id !== profile.id) {
         query = query.eq('is_public', true);
       }
@@ -77,7 +62,21 @@ export default function MyBlog() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [username, user]);
+
+  useEffect(() => {
+    // Handle redirect logic for /my-blog route
+    if (!username) {
+      if (user?.user_metadata?.username) {
+        navigate(`/blog/${user.user_metadata.username}`, { replace: true });
+      } else if (!user) {
+        navigate('/login');
+      }
+      return;
+    }
+
+    fetchBlogData();
+  }, [username, user, navigate, fetchBlogData]);
 
   const handleDeletePost = async (e, postId) => {
     e.preventDefault(); 

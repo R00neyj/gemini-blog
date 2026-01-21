@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Navbar from './components/Navbar';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -26,49 +26,50 @@ function App() {
     <AuthProvider>
       <Toaster position="top-center" />
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/update-password" element={<UpdatePassword />} />
-          
-          {/* Protected Routes */}
-          <Route
-            path="/write"
-            element={
-              <ProtectedRoute>
-                <Write />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/post/:id" element={<PostDetail />} />
-          <Route
-            path="/post/:id/edit"
-            element={
-              <ProtectedRoute>
-                <PostEdit />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/blog/:username" element={<MyBlog />} />
-          <Route
-            path="/my-blog"
-            element={
-              <ProtectedRoute>
-                <MyBlog />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
+            
+            {/* Protected Routes */}
+            <Route
+              path="/write"
+              element={
+                <ProtectedRoute>
+                  <Write />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/post/:id" element={<PostDetail />} />
+            <Route
+              path="/post/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <PostEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/blog/:username" element={<MyBlog />} />
+            <Route
+              path="/my-blog"
+              element={
+                <ProtectedRoute>
+                  <MyBlog />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

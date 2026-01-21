@@ -1,54 +1,52 @@
-# Gemini Community Blog - 개발 진척도 (Progress Tracking)
+# 프로젝트 진행 상황 (Project Progress)
 
-## 1. 초기 설정 (Setup)
-- [x] React + Vite 프로젝트 구조 확인 및 정리
-- [x] `react-router-dom` 설치 및 라우팅 구조 잡기
-- [x] Supabase 클라이언트 라이브러리 설치 (`@supabase/supabase-js`)
-- [x] TailwindCSS 설치 및 색상 팔레트 설정 (Primary, Secondary, Accent)
-- [x] 스타일링 기본 구조 잡기 (CSS Reset 및 공통 스타일)
+## ✅ 완료된 작업 (Completed)
 
-## 2. PWA 설정 (Progressive Web App)
-- [x] `vite-plugin-pwa` 설치
-- [x] `manifest.webmanifest` 설정 (아이콘, 이름, 색상)
-- [x] 서비스 워커(Service Worker) 설정 및 오프라인 페이지 대응 확인
+- [x] **프로젝트 초기 설정**
+  - React + Vite 환경 구성
+  - TailwindCSS 설치 및 설정
+  - ESLint 설정
+- [x] **기본 기능 구현**
+  - 라우팅 설정 (React Router)
+  - 인증 컨텍스트 (AuthContext) 구성
+  - 기본 페이지 생성 (Home, Login, Signup 등)
+- [x] **게시글 및 댓글 시스템**
+  - 게시글 작성/수정/삭제 (CRUD)
+  - 공개/비공개 설정
+  - 댓글 작성/삭제 기능 구현 (`CommentSection`)
+- [x] **PWA 및 모바일 최적화**
+  - [x] Manifest 파일 생성 및 아이콘 설정
+  - [x] Service Worker 등록 (vite-plugin-pwa)
+  - [x] 모바일 설치 안내 UI (PWA Install FAB & Modal)
+  - [x] iOS/Android 설치 가이드
+  - [x] **PC QR코드 버튼 고도화**:
+    - 색상(Accent Color) 및 Glassmorphism(투명도 40%, 블러) 적용
+    - `DesktopQrButton` 컴포넌트 분리 및 중복 표시 버그 수정
+    - 모달 디자인 개선 (닫기 버튼 시인성 강화)
+- [x] **UI/UX 개선 및 디테일 최적화**
+  - [x] `Layout` 컴포넌트 도입으로 구조 리팩토링
+  - [x] **반응형 네비게이션 구조 개편**
+    - [x] Desktop: 좌측 고정 `Sidebar` (토글 애니메이션 최적화)
+    - [x] Mobile: 하단 플로팅 `BottomNav` (Apple UI 스타일, 둥근 모서리, 균등 간격)
+  - [x] **UI 디테일 고도화**
+    - [x] PC 사이드바: '내 블로그' 등 동적 경로 하이라이트 버그 수정
+    - [x] PC 사이드바: 로고를 CSS 'G' 대신 PWA 로고 이미지로 교체
+    - [x] PC 사이드바: **접힌 상태에서 로고 중앙 정렬 완벽 수정 (Gap 제거)**
+    - [x] PC 사이드바: **비로그인 시 글쓰기/내블로그/설정 대신 로그인 버튼 표시**
+    - [x] 설정 페이지: 입력 필드 모서리 둥글게(rounded-xl) 처리 및 투명 박스 스타일 적용
+    - [x] 모바일 네비바: 높이 축소 및 선택된 아이템 라운드 값 증가(rounded-full)
+    - [x] 모바일 FAB: 네비바 높이와 시각적 균형을 맞추도록 크기 조정
+- [x] **코드 품질 관리**
+  - [x] 전역적인 ESLint 오류 해결 (useEffect 의존성, 미사용 변수 등)
 
-## 3. 백엔드 및 데이터베이스 (Supabase)
-- [x] Supabase 프로젝트 생성
-- [x] **Table 생성:** `profiles`
-- [x] **Table 생성:** `posts` (RLS 정책 설정: 공개 글은 누구나 읽기 가능, 작성/수정은 본인만)
-- [x] **Table 생성:** `comments` (RLS 정책 설정)
-- [x] 환경 변수(`.env`) 설정
+## 🚧 진행 중인 작업 (In Progress)
 
-## 4. 기능 구현 - 인증 (Authentication)
-- [x] 로그인 페이지 UI 구현
-- [x] 회원가입 페이지 UI 구현
-- [x] Supabase Auth 연동 (로그인/로그아웃/회원가입 로직)
-- [x] AuthContext 또는 전역 상태 관리로 유저 세션 관리
-- [x] Protected Route 구현 (로그인 안 된 유저 접근 제한)
-- [x] **비밀번호 재설정:** `/reset-password` 페이지 구현 (이메일 발송)
+- **기능 고도화**
+  - [ ] 게시글 작성/수정 시 Markdown 에디터 도입
+  - [ ] 사용자 프로필 아이콘 커스터마이징 (이모지/심볼 조합)
 
-## 5. 기능 구현 - 게시글 (Posts)
-- [x] **Create:** 게시글 작성 페이지 UI 및 로직 (공개/비공개 선택 포함)
-- [x] **Read (List):** 메인 페이지 (모든 공개 글 목록)
-- [x] **Read (List):** 내 블로그 페이지 (내 글 전체 목록, 비공개 포함)
-- [x] **Read (Detail):** 게시글 상세 보기 페이지
-- [x] **Update:** 게시글 수정 기능
-- [x] **Delete:** 게시글 삭제 기능
+## 📅 예정된 작업 (Upcoming)
 
-## 6. 기능 구현 - 댓글 (Comments)
-- [x] 댓글 작성 컴포넌트 UI
-- [x] 댓글 목록 컴포넌트 UI
-- [x] 게시글 상세 페이지에 댓글 통합
-
-## 7. 추가 기능 (Sprint 2)
-- [x] **사용자 설정:** 프로필(닉네임) 수정 및 비밀번호 변경 기능 (`/settings`)
-- [x] **모바일 접근성:** 홈 화면 QR 코드 버튼(FAB) 및 모달 구현
-
-## 8. 최적화 및 배포 (Refinement & Deployment)
-- [x] **UI 개선:** 내비게이션 바 메뉴(홈, 글쓰기, 내 블로그, 설정)에 아이콘 추가
-- [x] **UI 개선:** 프리미엄 애니메이션 추가 (Fade-in, Slide-up, Hover Effects, Mobile Menu Slide-down)
-- [x] **UI 최적화:** 모바일 화면에서 불필요한 QR FAB 버튼 숨김 처리
-- [x] **UX 개선:** Native Alert/Confirm을 Toast 알림(`react-hot-toast`)으로 교체
-- [x] **Refactoring:** 게시글 상세 페이지(`PostDetail`) 컴포넌트 분리 (`PostHeader`, `CommentSection`)
-- [ ] 버그 수정 및 테스트
-- [ ] 최종 빌드 확인 (`npm run build`)
+- 검색 기능 구현
+- 게시글 좋아요/북마크 기능
+- 알림 센터 (댓글, 좋아요 알림)
