@@ -5,8 +5,8 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL')!
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-const VAPID_PUBLIC_KEY = 'BBOCNuJCYdXwzR2mWvgO3_k4CM5rySVlDVThpoqHt9aaoDaCap28GlOKumkZ3HclpNI0dSr_QTDsXj1S_QnVIys'
-const VAPID_PRIVATE_KEY = 'gQDn22qhYNBkZE0bsG0WdIIfJMEIkHUfSOgjpRZw6oI'
+const VAPID_PUBLIC_KEY = Deno.env.get('VAPID_PUBLIC_KEY')!
+const VAPID_PRIVATE_KEY = Deno.env.get('VAPID_PRIVATE_KEY')!
 const VAPID_SUBJECT = 'mailto:admin@gemini-community.com'
 
 webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY)
