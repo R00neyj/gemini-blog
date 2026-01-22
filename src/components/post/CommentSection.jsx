@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar';
+import { useRef, useEffect } from 'react';
 
 export default function CommentSection({ comments, user, newComment, onCommentChange, onSubmit, onDelete }) {
+  const textareaRef = useRef(null);
+
   const formatDate = (dateString) => {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('ko-KR', {
@@ -12,6 +15,22 @@ export default function CommentSection({ comments, user, newComment, onCommentCh
       minute: '2-digit'
     });
   };
+
+  const handleTextareaChange = (e) => {
+    const textarea = e.target;
+    onCommentChange(textarea.value);
+    
+    // Auto-resize height
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  // Reset height when newComment is cleared (after submit)
+  useEffect(() => {
+    if (newComment === '' && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
+  }, [newComment]);
 
   return (
     <section className="bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
@@ -56,10 +75,11 @@ export default function CommentSection({ comments, user, newComment, onCommentCh
         <form onSubmit={onSubmit} className="mt-6">
           <div className="flex flex-col space-y-3">
             <textarea
+              ref={textareaRef}
               value={newComment}
-              onChange={(e) => onCommentChange(e.target.value)}
+              onChange={handleTextareaChange}
               placeholder="댓글을 입력하세요..."
-              className="w-full px-4 py-3 border border-secondary bg-primary text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none resize-none min-h-[100px] placeholder-gray-500"
+              className="w-full px-4 py-3 border border-secondary bg-primary text-white rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent outline-none resize-none min-h-[60px] max-h-[300px] overflow-y-auto placeholder-gray-500 transition-all duration-200"
               required
             />
             <div className="flex justify-end">

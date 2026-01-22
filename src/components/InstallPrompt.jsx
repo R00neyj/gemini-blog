@@ -43,6 +43,26 @@ export default function InstallPrompt() {
     };
   }, []);
 
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+      setIsOpen(false);
+    }
+  };
+
+  const handleFabClick = () => {
+    if (deferredPrompt) {
+      handleInstallClick();
+    } else {
+      setIsOpen(true);
+    }
+  };
+
   // Don't show if already installed (standalone) or not on home page
   if (!isHomePage || isStandalone) return null;
 
@@ -50,7 +70,7 @@ export default function InstallPrompt() {
     <>
       {/* FAB */}
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleFabClick}
         className="p-4 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
         aria-label="앱 설치 안내"
       >
@@ -109,9 +129,9 @@ export default function InstallPrompt() {
                           iOS Safari 설치 가이드
                         </p>
                         <ol className="list-decimal list-inside space-y-2 text-xs leading-relaxed">
-                          <li>Safari 브라우저 하단의 <strong className="text-white">공유 버튼</strong>(네모와 화살표 모양)을 누릅니다.</li>
-                          <li>리스트를 아래로 내려 <strong className="text-white">'홈 화면에 추가'</strong>를 선택합니다.</li>
-                          <li>우측 상단의 <strong className="text-white">'추가'</strong> 버튼을 눌러 완료합니다.</li>
+                          <li>Safari 브라우저 하단의 <strong className="text-white">공유 아이콘</strong> (상단 화살표가 있는 사각형 모양)을 탭합니다.</li>
+                          <li>메뉴를 아래로 스크롤하여 <strong className="text-white">'홈 화면에 추가'</strong>를 선택합니다.</li>
+                          <li>오른쪽 상단의 <strong className="text-white">'추가'</strong>를 눌러 설치를 완료하세요.</li>
                         </ol>
                       </div>
                     ) : (

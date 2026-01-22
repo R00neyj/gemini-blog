@@ -156,7 +156,7 @@ export default function Notifications() {
                 </button>
 
                 <div className="flex items-start space-x-4 pr-6">
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 relative">
                     <Avatar src={notification.actor?.avatar_url} size="md" />
                     <div className={`absolute -bottom-1 -right-1 p-1 rounded-full ${
                         notification.type === 'like' ? 'bg-red-500' : 'bg-blue-500'
