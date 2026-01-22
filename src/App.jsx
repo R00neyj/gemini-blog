@@ -13,6 +13,7 @@ import PostEdit from './pages/PostEdit';
 import MyBlog from './pages/MyBlog';
 import Settings from './pages/Settings';
 import Search from './pages/Search';
+import Notifications from './pages/Notifications';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -37,6 +38,14 @@ function App() {
             <Route path="/search" element={<Search />} />
             
             {/* Protected Routes */}
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notifications />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/write"
               element={

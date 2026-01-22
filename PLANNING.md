@@ -55,6 +55,7 @@
 - **구독 관리:** 설정 페이지에서 알림 수신 동의/거부 토글 제공.
 - **웹 푸시:** Service Worker와 Web Push API를 활용한 알림 전송.
 - **알림 트리거:** 내 글에 댓글이 달렸을 때 작성자에게 즉시 푸시 알림 발송 (Supabase Edge Function 활용).
+- **알림 센터:** 읽지 않은 알림 뱃지 표시 및 '모두 읽음' 수동 처리 기능 제공.
 
 ## 4. 데이터베이스 스키마 설계 (Database Schema - Supabase)
 
@@ -70,6 +71,30 @@ Supabase Auth의 `users` 테이블과 연동되는 프로필 테이블
 - `id` (UUID, PK)
 - `user_id` (UUID, FK to auth.users)
 - `subscription` (JSONB - Endpoint, Keys)
+- `created_at` (Timestamp)
+
+### `post_likes` (Likes) - [New]
+게시글 좋아요 정보
+- `id` (UUID, PK)
+- `user_id` (UUID, FK to auth.users)
+- `post_id` (UUID, FK to posts.id)
+- `created_at` (Timestamp)
+
+### `post_bookmarks` (Bookmarks) - [New]
+게시글 북마크 정보
+- `id` (UUID, PK)
+- `user_id` (UUID, FK to auth.users)
+- `post_id` (UUID, FK to posts.id)
+- `created_at` (Timestamp)
+
+### `notifications` (Notifications) - [New]
+사용자 알림 정보 (댓글, 좋아요 등)
+- `id` (UUID, PK)
+- `user_id` (UUID, FK to auth.users) - 수신자
+- `actor_id` (UUID, FK to auth.users) - 발신자
+- `type` (Text: 'comment', 'like')
+- `post_id` (UUID, FK to posts.id)
+- `is_read` (Boolean, Default: false)
 - `created_at` (Timestamp)
 
 ### `posts`

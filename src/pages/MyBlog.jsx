@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 import Avatar from '../components/Avatar';
+import PostActions from '../components/post/PostActions';
 
 export default function MyBlog() {
   const { username } = useParams();
@@ -189,29 +190,33 @@ export default function MyBlog() {
                   {post.content}
                 </p>
                 
-                <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-secondary/50 mt-auto">
-                  <Link 
-                    to={`/post/${post.id}`}
-                    className="text-gray-400 hover:text-white text-sm font-medium whitespace-nowrap"
-                  >
-                    보기
-                  </Link>
-                  {isOwner && (
-                    <>
-                      <Link 
-                        to={`/post/${post.id}/edit`}
-                        className="text-blue-400 hover:text-blue-300 text-sm font-medium whitespace-nowrap"
-                      >
-                        수정
-                      </Link>
-                      <button
-                        onClick={(e) => handleDeletePost(e, post.id)}
-                        className="text-red-400 hover:text-red-300 text-sm font-medium whitespace-nowrap"
-                      >
-                        삭제
-                      </button>
-                    </>
-                  )}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-secondary/50 mt-auto">
+                  <PostActions postId={post.id} postAuthorId={post.user_id} />
+                  
+                  <div className="flex items-center gap-4">
+                    <Link 
+                      to={`/post/${post.id}`}
+                      className="text-gray-400 hover:text-white text-sm font-medium whitespace-nowrap"
+                    >
+                      보기
+                    </Link>
+                    {isOwner && (
+                      <>
+                        <Link 
+                          to={`/post/${post.id}/edit`}
+                          className="text-blue-400 hover:text-blue-300 text-sm font-medium whitespace-nowrap"
+                        >
+                          수정
+                        </Link>
+                        <button
+                          onClick={(e) => handleDeletePost(e, post.id)}
+                          className="text-red-400 hover:text-red-300 text-sm font-medium whitespace-nowrap"
+                        >
+                          삭제
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

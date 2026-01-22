@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import qrcodeImg from '../assets/qrcode.png';
 
 export default function InstallPrompt() {
@@ -54,13 +55,13 @@ export default function InstallPrompt() {
       </button>
 
       {/* Modal */}
-      {isOpen && (
+      {isOpen && createPortal(
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in"
+          className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-fade-in touch-none"
           onClick={() => setIsOpen(false)}
         >
           <div 
-            className="bg-surface border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-slide-up"
+            className="bg-surface border border-white/10 rounded-[2.5rem] p-8 w-full max-w-sm shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8)] relative animate-slide-up mx-auto overflow-y-auto max-h-[90vh] scrollbar-hide"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
@@ -135,7 +136,8 @@ export default function InstallPrompt() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

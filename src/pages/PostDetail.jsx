@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 import PostHeader from '../components/post/PostHeader';
 import CommentSection from '../components/post/CommentSection';
+import { createNotification } from '../lib/notification';
 
 export default function PostDetail() {
   const { id } = useParams();
@@ -99,6 +100,14 @@ export default function PostDetail() {
       setComments([...comments, data]);
       setNewComment('');
       toast.success('댓글이 등록되었습니다.');
+
+      // Create Notification
+      createNotification({
+          userId: post.user_id,
+          actorId: user.id,
+          type: 'comment',
+          postId: id
+      });
 
       // Trigger Push Notification (Fire and forget)
       // Note: In a real app, this should ideally be triggered by a Database Webhook to ensure reliability

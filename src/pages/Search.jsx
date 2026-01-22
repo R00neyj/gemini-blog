@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import Avatar from '../components/Avatar';
+import PostActions from '../components/post/PostActions';
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -145,11 +146,15 @@ export default function Search() {
                         {post.content}
                       </p>
                       
-                      <div className="flex items-center text-accent text-sm font-medium group-hover:underline mt-auto">
-                        더 읽기 
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                      <div className="flex items-center justify-between mt-auto">
+                        <PostActions postId={post.id} postAuthorId={post.user_id} />
+                        
+                        <div className="flex items-center text-accent text-sm font-medium group-hover:underline">
+                          더 읽기 
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </div>
                       </div>
                     </Link>
                   </div>

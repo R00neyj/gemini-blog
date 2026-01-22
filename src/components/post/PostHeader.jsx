@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar';
 import MDEditor from '@uiw/react-md-editor';
+import PostActions from './PostActions';
 
 export default function PostHeader({ post, isOwner, onDelete }) {
   const formatDate = (dateString) => {
@@ -58,8 +59,12 @@ export default function PostHeader({ post, isOwner, onDelete }) {
         </div>
       </header>
       
-      <div className="prose max-w-none text-gray-300 whitespace-pre-wrap leading-relaxed" data-color-mode="dark">
+      <div className="prose max-w-none text-gray-300 whitespace-pre-wrap leading-relaxed mb-8" data-color-mode="dark">
         <MDEditor.Markdown source={post.content} style={{ backgroundColor: 'transparent', color: 'inherit' }} />
+      </div>
+
+      <div className="flex justify-end pt-6 border-t border-secondary/50">
+        <PostActions postId={post.id} postAuthorId={post.user_id} />
       </div>
     </article>
   );

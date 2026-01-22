@@ -87,7 +87,7 @@ export default function PostEdit() {
 
   return (
     <div className="animate-fade-in">
-      <div className="max-w-3xl mx-auto bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
+      <div className="max-w-5xl mx-auto bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
         <h1 className="text-3xl font-bold text-white mb-8">게시글 수정</h1>
         
         {error && (

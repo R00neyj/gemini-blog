@@ -1,10 +1,48 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Avatar from "./Avatar";
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 export default function BottomNav() {
   const { user } = useAuth();
   const location = useLocation();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      fetchUnreadCount();
+      
+       const channel = supabase
+        .channel('public:notifications:bottom')
+        .on(
+          'postgres_changes',
+          {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'notifications',
+            filter: `user_id=eq.${user.id}`
+          },
+          (payload) => {
+             setUnreadCount(prev => prev + 1);
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [user]);
+
+  const fetchUnreadCount = async () => {
+    const { count } = await supabase
+      .from('notifications')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('is_read', false);
+    setUnreadCount(count || 0);
+  };
 
   const isActive = (path) => location.pathname === path;
 
@@ -20,10 +58,18 @@ export default function BottomNav() {
       </svg>
     )},
     ...(user ? [
-      { path: "/write", label: "글쓰기", icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-        </svg>
+      { path: "/notifications", label: "알림", icon: (
+        <div className="relative">
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+            </span>
+          )}
+        </div>
       )},
       { path: user.user_metadata?.username ? `/blog/${user.user_metadata.username}` : "/my-blog", label: "내 블로그", icon: (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,15 +86,15 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className={`w-full bg-black/40 backdrop-blur-xl border border-white/5 rounded-full shadow-2xl grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-2 py-1.5`}>
+    <nav className={`w-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-1.5 py-2`}>
       {navItems.map((item) => (
         <Link
           key={item.path}
           to={item.path}
-          className={`flex flex-col items-center gap-0.5 transition-all duration-200 px-2 py-1 rounded-full ${
+          className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 px-1 py-1.5 rounded-full ${
             isActive(item.path)
-              ? "text-accent bg-white/10"
-              : "text-gray-400 active:text-gray-200"
+              ? "text-accent bg-white/10 shadow-inner"
+              : "text-gray-400 active:scale-90"
           }`}
         >
           {item.icon}
