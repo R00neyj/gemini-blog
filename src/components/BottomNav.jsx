@@ -86,7 +86,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className={`w-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-1.5 py-2`}>
+    <nav className={`w-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-2 py-2`}>
       {navItems.map((item) => (
         <Link
           key={item.path}

@@ -102,12 +102,14 @@ export default function PostDetail() {
       toast.success('댓글이 등록되었습니다.');
 
       // Create Notification
-      createNotification({
-          userId: post.user_id,
-          actorId: user.id,
-          type: 'comment',
-          postId: id
-      });
+      if (post?.user_id) {
+        createNotification({
+            userId: post.user_id,
+            actorId: user.id,
+            type: 'comment',
+            postId: id
+        });
+      }
 
       // Trigger Push Notification (Fire and forget)
       // Note: In a real app, this should ideally be triggered by a Database Webhook to ensure reliability

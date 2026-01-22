@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import qrcodeImg from '../assets/qrcode.png';
 
 export default function InstallPrompt() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
   const [isOpen, setIsOpen] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
   const [isIOS] = useState(() => {
     if (typeof window === 'undefined') return false;
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -11,6 +15,20 @@ export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
+    // Check if running in standalone mode (PWA)
+    const checkStandalone = () => {
+      const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || 
+                               window.navigator.standalone || 
+                               document.referrer.includes('android-app://');
+      setIsStandalone(isStandaloneMode);
+    };
+
+    checkStandalone();
+    
+    // Listen for mode changes (e.g. installing while open)
+    const mediaQuery = window.matchMedia('(display-mode: standalone)');
+    mediaQuery.addEventListener('change', checkStandalone);
+
     // Capture install prompt
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
@@ -20,36 +38,23 @@ export default function InstallPrompt() {
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
+      mediaQuery.removeEventListener('change', checkStandalone);
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
 
-  const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setDeferredPrompt(null);
-        setIsOpen(false);
-      }
-    } else {
-      // Fallback or just show instructions
-      setIsOpen(true);
-    }
-  };
-
-  // Don't show on login/signup pages if desired, but request says "mobile Fab" generally.
-  // We'll keep it simple and always show it on mobile unless installed.
+  // Don't show if already installed (standalone) or not on home page
+  if (!isHomePage || isStandalone) return null;
 
   return (
     <>
       {/* FAB */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-3 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
+        className="p-4 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
         aria-label="앱 설치 안내"
       >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
       </button>

@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Avatar from '../components/Avatar';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { toast } from 'react-hot-toast';
 
 export default function Notifications() {
   const { user } = useAuth();
@@ -18,18 +19,24 @@ export default function Notifications() {
   }, [user]);
 
   const fetchNotifications = async () => {
+    console.log("Fetching notifications for user:", user?.id);
     try {
       const { data, error } = await supabase
         .from('notifications')
         .select(`
           *,
-          actor:actor_id (username, avatar_url),
+          actor:profiles!notifications_actor_id_fkey_profiles (username, avatar_url),
           post:post_id (title)
         `)
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error fetching notifications:', error);
+        throw error;
+      }
+      
+      console.log("Fetched notifications:", data);
       setNotifications(data || []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
@@ -52,6 +59,28 @@ export default function Notifications() {
       setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
     } catch (error) {
       console.error('Error marking notifications as read:', error);
+    }
+  };
+
+  const deleteNotification = async (e, notificationId) => {
+    e.preventDefault(); // Prevent navigation
+    e.stopPropagation();
+
+    // Optimistic update
+    setNotifications(prev => prev.filter(n => n.id !== notificationId));
+
+    try {
+      const { error } = await supabase
+        .from('notifications')
+        .delete()
+        .eq('id', notificationId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error deleting notification:', error);
+      // Revert if needed, but for delete we usually just show error toast
+      toast.error('알림 삭제 실패');
+      fetchNotifications();
     }
   };
 
@@ -112,11 +141,21 @@ export default function Notifications() {
               <Link
                 key={notification.id}
                 to={`/post/${notification.post_id}`}
-                className={`block bg-surface p-5 rounded-xl border transition-all hover:border-accent group ${
+                className={`block bg-surface p-5 rounded-xl border transition-all hover:border-accent group relative ${
                   !notification.is_read ? 'border-accent/50 bg-accent/5' : 'border-secondary/50'
                 }`}
               >
-                <div className="flex items-start space-x-4">
+                <button
+                  onClick={(e) => deleteNotification(e, notification.id)}
+                  className="absolute top-3 right-3 text-gray-500 hover:text-red-400 p-1 rounded-full hover:bg-white/5 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                  title="알림 삭제"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                <div className="flex items-start space-x-4 pr-6">
                   <div className="flex-shrink-0">
                     <Avatar src={notification.actor?.avatar_url} size="md" />
                     <div className={`absolute -bottom-1 -right-1 p-1 rounded-full ${

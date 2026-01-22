@@ -14,7 +14,7 @@ export async function createNotification({ userId, actorId, type, postId }) {
   if (userId === actorId) return;
 
   try {
-    // Check for existing unread notification of same type/actor/post to avoid spam (especially for likes)
+    // Check for existing unread notification of same type/actor/post to avoid spam (ONLY for likes)
     if (type === 'like') {
       const { data } = await supabase
         .from('notifications')

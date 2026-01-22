@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import BottomNav from './BottomNav';
 import InstallPrompt from './InstallPrompt';
 import DesktopQrButton from './DesktopQrButton';
+import NotificationPrompt from './NotificationPrompt';
 
 export default function Layout() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
     <div className="min-h-screen bg-primary text-gray-100 font-sans flex relative overflow-hidden">
@@ -25,15 +28,23 @@ export default function Layout() {
       </main>
 
       {/* Mobile Bottom Area */}
-      <div className="fixed bottom-6 left-8 right-8 max-w-lg mx-auto z-50 flex items-center gap-3 md:hidden animate-slide-up">
+      <div className="fixed bottom-6 left-4 right-4 max-w-xl mx-auto z-50 md:hidden animate-slide-up">
         <BottomNav />
-        <InstallPrompt />
       </div>
+
+      {/* Mobile Install FAB (Positioned above BottomNav, Home Only) */}
+      {isHomePage && (
+        <div className="md:hidden fixed bottom-[118px] right-8 z-40 animate-fade-in">
+          <InstallPrompt />
+        </div>
+      )}
 
       {/* Desktop QR/Install Button (Bottom Right) */}
       <div className="hidden md:block fixed bottom-8 right-8 z-50 animate-fade-in">
         <DesktopQrButton />
       </div>
+
+      <NotificationPrompt />
     </div>
   );
 }
