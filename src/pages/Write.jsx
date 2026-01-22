@@ -80,7 +80,7 @@ export default function Write() {
             <MDEditor
               value={content}
               onChange={setContent}
-              height={400}
+              height={500}
               className="border border-secondary rounded-lg overflow-hidden"
               textareaProps={{
                 placeholder: '자유롭게 이야기를 작성해보세요... (Markdown 지원)'

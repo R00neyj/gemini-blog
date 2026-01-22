@@ -51,6 +51,11 @@
 - **QR 코드 공유:** 홈 화면 우측 하단에 QR 코드 버튼(FAB) 배치. 클릭 시 현재 사이트 URL의 QR 코드를 모달로 띄워 모바일 기기에서 쉽게 접속/설치 유도.
 - **Manifest:** 앱 아이콘, 이름, 테마 색상 설정.
 
+### 3.6. 푸시 알림 시스템 (Push Notifications) - [New]
+- **구독 관리:** 설정 페이지에서 알림 수신 동의/거부 토글 제공.
+- **웹 푸시:** Service Worker와 Web Push API를 활용한 알림 전송.
+- **알림 트리거:** 내 글에 댓글이 달렸을 때 작성자에게 즉시 푸시 알림 발송 (Supabase Edge Function 활용).
+
 ## 4. 데이터베이스 스키마 설계 (Database Schema - Supabase)
 
 ### `profiles` (Users)
@@ -58,6 +63,13 @@ Supabase Auth의 `users` 테이블과 연동되는 프로필 테이블
 - `id` (UUID, PK, FK to auth.users)
 - `username` (Text)
 - `avatar_url` (Text)
+- `created_at` (Timestamp)
+
+### `push_subscriptions` (Push Notifications) - [New]
+사용자의 웹 푸시 구독 정보 저장
+- `id` (UUID, PK)
+- `user_id` (UUID, FK to auth.users)
+- `subscription` (JSONB - Endpoint, Keys)
 - `created_at` (Timestamp)
 
 ### `posts`
@@ -107,6 +119,8 @@ Supabase Auth의 `users` 테이블과 연동되는 프로필 테이블
        - 높이 축소 및 Glassmorphism 디자인 디테일 강화.
    - **디자인 시스템 일관성:**
      - 설정 페이지 등 주요 입력 필드에 둥근 모서리(rounded-xl) 투명 박스 스타일 적용.
+   - **푸시 알림 구현:** Edge Function 및 Web Push 연동.
+   - **레이아웃 고도화:** 데스크탑 2열 그리드 적용.
 
 9. **추후 구현 예정 (Future Features):**
    - **프로필 아이콘 커스터마이징:** 이모지와 구글 심볼(Material Symbols)을 활용한 아바타 생성기 구현 (서버 업로드 대체).

@@ -12,6 +12,7 @@ import PostDetail from './pages/PostDetail';
 import PostEdit from './pages/PostEdit';
 import MyBlog from './pages/MyBlog';
 import Settings from './pages/Settings';
+import Search from './pages/Search';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -33,6 +34,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/update-password" element={<UpdatePassword />} />
+            <Route path="/search" element={<Search />} />
             
             {/* Protected Routes */}
             <Route

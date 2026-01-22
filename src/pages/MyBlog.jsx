@@ -126,7 +126,7 @@ export default function MyBlog() {
 
   return (
     <div className="animate-fade-in">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6 animate-slide-up">
           <div className="flex items-center space-x-4">
              <Avatar 
@@ -161,11 +161,11 @@ export default function MyBlog() {
             )}
           </div>
         ) : (
-          <div className="grid gap-6 animate-slide-up-delay">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-slide-up-delay">
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50"
+                className="flex flex-col bg-surface rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50 h-full"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
@@ -185,11 +185,11 @@ export default function MyBlog() {
                   </div>
                 </div>
                 
-                <p className="text-gray-300 line-clamp-2 mb-4">
+                <p className="text-gray-300 line-clamp-2 mb-4 flex-1">
                   {post.content}
                 </p>
                 
-                <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-secondary/50">
+                <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-secondary/50 mt-auto">
                   <Link 
                     to={`/post/${post.id}`}
                     className="text-gray-400 hover:text-white text-sm font-medium whitespace-nowrap"

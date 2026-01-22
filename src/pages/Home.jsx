@@ -72,11 +72,11 @@ export default function Home() {
             <p className="text-gray-400">아직 게시글이 없습니다. 첫 글을 작성해보세요!</p>
           </div>
         ) : (
-          <div className="grid gap-6 animate-slide-up">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-slide-up">
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="block bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50 hover:border-accent"
+                className="flex flex-col bg-surface rounded-xl shadow-md hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1 p-5 sm:p-6 border border-secondary/50 hover:border-accent h-full"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -100,15 +100,15 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <Link to={`/post/${post.id}`} className="block group">
+                <Link to={`/post/${post.id}`} className="block group flex-1 flex flex-col">
                   <h2 className="text-xl font-bold text-white mb-3 line-clamp-1 group-hover:text-accent transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-gray-300 line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors">
+                  <p className="text-gray-300 line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors flex-1">
                     {post.content}
                   </p>
                   
-                  <div className="flex items-center text-accent text-sm font-medium group-hover:underline">
+                  <div className="flex items-center text-accent text-sm font-medium group-hover:underline mt-auto">
                     더 읽기 
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -86,7 +86,7 @@ export default function PostEdit() {
   if (loading) return <div className="flex justify-center p-12"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div></div>;
 
   return (
-    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
+    <div className="animate-fade-in">
       <div className="max-w-3xl mx-auto bg-surface rounded-xl shadow-lg p-5 sm:p-8 border border-secondary/50">
         <h1 className="text-3xl font-bold text-white mb-8">게시글 수정</h1>
         
@@ -118,7 +118,7 @@ export default function PostEdit() {
             <MDEditor
               value={content}
               onChange={setContent}
-              height={400}
+              height={500}
               className="border border-secondary rounded-lg overflow-hidden"
             />
           </div>
