@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import Avatar from '../components/Avatar';
 import PostActions from '../components/post/PostActions';
+import HighlightText from '../components/HighlightText';
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -140,10 +141,10 @@ export default function Search() {
                     
                     <Link to={`/post/${post.id}`} className="block group flex-1 flex flex-col">
                       <h2 className="text-xl font-bold text-white mb-3 line-clamp-1 group-hover:text-accent transition-colors">
-                        {post.title}
+                        <HighlightText text={post.title} highlight={query} />
                       </h2>
                       <p className="text-gray-300 line-clamp-3 mb-4 group-hover:text-gray-200 transition-colors flex-1">
-                        {post.content}
+                        <HighlightText text={post.content} highlight={query} />
                       </p>
                       
                       <div className="flex items-center justify-between mt-auto">
