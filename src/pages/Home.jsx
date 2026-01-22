@@ -15,7 +15,7 @@ export default function Home() {
     
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000); // Update every minute
+    }, 1000); // Update every second for real-time sync
 
     return () => clearInterval(timer);
   }, []);
@@ -57,7 +57,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24 relative animate-fade-in">
+    <div className="animate-fade-in">
       <div className="max-w-5xl mx-auto">
         <header className="mb-8 animate-slide-up">
           <div className="text-sm font-medium text-accent mb-2 tracking-wide uppercase">

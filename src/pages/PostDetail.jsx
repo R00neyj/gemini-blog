@@ -99,6 +99,25 @@ export default function PostDetail() {
       setComments([...comments, data]);
       setNewComment('');
       toast.success('댓글이 등록되었습니다.');
+
+      // Trigger Push Notification (Fire and forget)
+      // Note: In a real app, this should ideally be triggered by a Database Webhook to ensure reliability
+      // and security (validating the payload). But for this demo, we call it directly.
+      fetch('https://itfsgqvydtcdglmnflpy.supabase.co/functions/v1/push-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.NODE_ENV === 'development' ? import.meta.env.VITE_SUPABASE_ANON_KEY : ''}` // Anon key is usually needed for public functions or we can make it public
+        },
+        body: JSON.stringify({
+            record: {
+                post_id: id,
+                content: newComment,
+                user_id: user.id // Commenter ID
+            }
+        })
+      }).catch(err => console.error('Push trigger error:', err));
+
     } catch (err) {
       toast.error('댓글 등록 실패: ' + err.message);
     }
@@ -129,7 +148,7 @@ export default function PostDetail() {
   const isOwner = user && user.id === post.user_id;
 
   return (
-    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
+    <div className="animate-fade-in">
       <div className="max-w-3xl mx-auto">
         <PostHeader 
           post={post} 

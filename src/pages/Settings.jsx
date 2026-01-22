@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabaseClient";
+import { subscribeToPushNotifications, unsubscribeFromPushNotifications, checkSubscriptionStatus } from "../utils/pushNotification";
+import { toast } from "react-hot-toast";
 
 export default function Settings() {
   const { user, signOut } = useAuth();
@@ -10,6 +12,8 @@ export default function Settings() {
   const [username, setUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [pushLoading, setPushLoading] = useState(false);
 
   // Avatar states
   const [avatarType, setAvatarType] = useState("emoji"); // 'emoji' or 'symbol'
@@ -46,7 +50,30 @@ export default function Settings() {
       setAvatarValue(value);
       setAvatarBg(bg);
     }
+
+    // Check push status
+    checkSubscriptionStatus().then(setPushEnabled);
   }, [user]);
+
+  const handlePushToggle = async () => {
+    setPushLoading(true);
+    try {
+      if (pushEnabled) {
+        await unsubscribeFromPushNotifications(user.id);
+        setPushEnabled(false);
+        toast.success("알림이 해제되었습니다.");
+      } else {
+        await subscribeToPushNotifications(user.id);
+        setPushEnabled(true);
+        toast.success("알림이 설정되었습니다! 이제 새 댓글 알림을 받을 수 있습니다.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("알림 설정 중 오류가 발생했습니다: " + error.message);
+    } finally {
+      setPushLoading(false);
+    }
+  };
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -109,7 +136,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen p-3 pt-20 sm:p-6 sm:pt-24">
+    <div className="animate-fade-in">
       <div className="max-w-2xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold text-white mb-8">내 프로필 설정</h1>
 
@@ -188,6 +215,29 @@ export default function Settings() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Notifications Section */}
+          <section className="p-0 sm:p-4">
+            <h2 className="text-xl font-semibold text-white mb-8 flex items-center">
+              <span className="w-1.5 h-6 bg-accent rounded-full mr-3 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span>
+              알림 설정
+            </h2>
+            <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/5">
+              <div>
+                <h3 className="text-white font-medium">새 댓글 알림</h3>
+                <p className="text-sm text-gray-400 mt-1">내 글에 댓글이 달리면 푸시 알림을 받습니다.</p>
+              </div>
+              <button
+                onClick={handlePushToggle}
+                disabled={pushLoading}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-gray-900 ${pushEnabled ? 'bg-accent' : 'bg-gray-700'}`}
+              >
+                <span
+                  className={`${pushEnabled ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+                />
+              </button>
             </div>
           </section>
 

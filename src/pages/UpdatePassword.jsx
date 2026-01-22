@@ -62,7 +62,7 @@ export default function UpdatePassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 pt-20 bg-primary">
+    <div className="flex flex-col items-center justify-center py-10 sm:py-20 animate-fade-in">
       <div className="bg-surface p-8 rounded-xl shadow-lg border border-secondary max-w-md w-full">
         <h1 className="text-2xl font-bold text-white mb-6 text-center">새 비밀번호 설정</h1>
         

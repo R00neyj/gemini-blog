@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import SplashScreen from '../components/SplashScreen';
 
 const AuthContext = createContext({});
 
@@ -15,7 +16,11 @@ export const AuthProvider = ({ children }) => {
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
-      setLoading(false);
+      
+      // Add a slight delay for the luxurious splash effect
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
     };
 
     getSession();
@@ -23,7 +28,6 @@ export const AuthProvider = ({ children }) => {
     // Listen for changes on auth state (logged in, signed out, etc.)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user ?? null);
-      setLoading(false);
     });
 
     return () => {
@@ -40,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext value={value}>
-      {!loading && children}
+      {loading ? <SplashScreen /> : children}
     </AuthContext>
   );
 };
