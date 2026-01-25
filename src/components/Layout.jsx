@@ -28,7 +28,10 @@ export default function Layout() {
       </main>
 
       {/* Mobile Bottom Area */}
-      <div className="fixed bottom-6 left-4 right-4 max-w-xl mx-auto z-50 md:hidden animate-slide-up">
+      <div 
+        className="fixed bottom-6 left-4 right-4 max-w-xl mx-auto z-50 md:hidden animate-slide-up bg-[#191919]/60 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-2 py-2"
+        style={{ WebkitBackdropFilter: 'blur(24px)' }}
+      >
         <BottomNav />
       </div>
 
