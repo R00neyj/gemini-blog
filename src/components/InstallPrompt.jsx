@@ -106,7 +106,7 @@ export default function InstallPrompt() {
             <div className="flex flex-col items-center gap-6">
               {/* QR Code */}
               <div className="bg-white p-2 rounded-xl">
-                <img src={qrcodeImg} alt="Install QR Code" className="w-32 h-32 object-contain" />
+                <img src={qrcodeImg} alt="Install QR Code" className="w-32 h-32 object-contain" loading="lazy" decoding="async" />
               </div>
 
               {/* Install Guide */}

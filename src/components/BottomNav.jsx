@@ -87,8 +87,8 @@ export default function BottomNav() {
 
   return (
     <nav 
-      className={`w-full bg-[#121212]/70 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-2 py-2`}
-      style={{ WebkitBackdropFilter: 'blur(20px)' }}
+      className={`w-full bg-[#191919]/60 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} gap-1 items-center px-2 py-2`}
+      style={{ WebkitBackdropFilter: 'blur(24px)' }}
     >
       {navItems.map((item) => (
         <Link

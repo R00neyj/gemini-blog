@@ -118,6 +118,8 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
             src="/pwa-192x192.png" 
             alt="Logo" 
             className="w-10 h-10 rounded-xl object-contain shadow-lg shrink-0 transition-transform group-hover:scale-105" 
+            loading="lazy"
+            decoding="async"
           />
           <span className={`font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 transition-all duration-300 whitespace-nowrap overflow-hidden ${isExpanded ? "w-auto opacity-100 ml-3 text-xl" : "w-0 opacity-0 ml-0 text-[0px]"}`}>
             Gemini Blog
