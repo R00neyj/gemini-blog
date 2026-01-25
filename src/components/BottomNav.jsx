@@ -44,7 +44,24 @@ export default function BottomNav() {
     setUnreadCount(count || 0);
   };
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    // Basic exact match
+    if (location.pathname === path) return true;
+    
+    // Handle My Blog aliasing
+    if (user) {
+      const username = user.user_metadata?.username;
+      const myBlogUrl = username ? `/blog/${username}` : '/my-blog';
+      
+      // If the nav item is pointing to My Blog
+      if (path === myBlogUrl || path === '/my-blog') {
+        // Return true if we are on either the alias or the canonical URL
+        return location.pathname === '/my-blog' || (username && location.pathname === `/blog/${username}`);
+      }
+    }
+
+    return false;
+  };
 
   const navItems = [
     { path: "/", label: "홈", icon: (

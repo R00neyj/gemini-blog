@@ -49,9 +49,13 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
 
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
-    if (path === "/my-blog" || path.startsWith("/blog/")) {
-      return location.pathname === "/my-blog" || location.pathname.startsWith("/blog/");
+    
+    // Precise My Blog handling
+    if (path === myBlogPath || path === "/my-blog") {
+      return location.pathname === "/my-blog" || (username && location.pathname === `/blog/${username}`);
     }
+
+    // Default startsWith for other items (like /settings, /notifications)
     return location.pathname.startsWith(path);
   };
 
