@@ -67,6 +67,7 @@ gemini-community/
 - **모듈 시스템:** ES Modules (`import`/`export`) 문법을 엄격히 준수합니다.
 - **Strict Mode:** `main.jsx`에서 `<StrictMode>`가 활성화되어 있으므로, 개발 모드에서 컴포넌트가 두 번 렌더링될 수 있음을 인지해야 합니다.
 - **Type Safety:** 현재 TypeScript가 아닌 JavaScript(`type: module`) 프로젝트입니다. `prop-types` 사용이나 JSDoc을 통한 타입 힌트 제공을 권장합니다.
+- **PWA UX**: 모바일 네비게이션은 스크롤 방향에 따라 가시성이 제어되어야 합니다 (Hide on Scroll Down).
 
 ### 린팅 규칙 (ESLint)
 
@@ -76,9 +77,16 @@ gemini-community/
 
 ### 스타일링
 
-- tailwind를 사용하여 스타일링 함.
+- tailwind를 사용하여 스타일링 함. (v4 기준 `@theme` 변수 활용)
 
-## 5. 참고 사항
+## 5. 프로젝트 로드맵 (Current Plan)
 
-- 이미지 경로는 `public` 폴더의 경우 `/`로 접근하며, `src/assets`의 경우 import 문을 통해 사용합니다.
-- Vite 환경 변수는 `import.meta.env` 객체를 통해 접근합니다.
+1. [x] Nested Comments 및 재귀 UI 구현
+2. [x] 검색 기록 및 키워드 하이라이팅 구현
+3. [x] UI/UX 정교화 (Notion 스타일, 블러 효과, 스크롤 애니메이션)
+4. [x] 마크다운 에디터 최적화 및 모바일 대응
+5. [x] 푸시 알림 시스템 안정화 및 RLS 정책 보강
+6. [ ] 사용자 프로필 아이디(Username) 검색 기능 확장
+7. [ ] 알림 클릭 시 게시글 이동 및 읽음 처리 연동
+8. [ ] Global Error Boundary 구현
+9. [ ] TypeScript 마이그레이션 및 안정화

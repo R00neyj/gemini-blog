@@ -52,7 +52,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
     
     // Precise My Blog handling
     if (path === myBlogPath || path === "/my-blog") {
-      return location.pathname === "/my-blog" || (username && location.pathname === `/blog/${username}`);
+      return location.pathname === "/my-blog" || (username && location.pathname.startsWith(`/blog/${username}`));
     }
 
     // Default startsWith for other items (like /settings, /notifications)

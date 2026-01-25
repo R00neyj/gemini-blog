@@ -76,6 +76,7 @@ export default function Notifications() {
         .eq('id', notificationId);
 
       if (error) throw error;
+      toast.success('알림이 삭제되었습니다.');
     } catch (error) {
       console.error('Error deleting notification:', error);
       // Revert if needed, but for delete we usually just show error toast

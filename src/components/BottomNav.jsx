@@ -45,22 +45,11 @@ export default function BottomNav() {
   };
 
   const isActive = (path) => {
-    // Basic exact match
-    if (location.pathname === path) return true;
-    
-    // Handle My Blog aliasing
-    if (user) {
-      const username = user.user_metadata?.username;
-      const myBlogUrl = username ? `/blog/${username}` : '/my-blog';
-      
-      // If the nav item is pointing to My Blog
-      if (path === myBlogUrl || path === '/my-blog') {
-        // Return true if we are on either the alias or the canonical URL
-        return location.pathname === '/my-blog' || (username && location.pathname === `/blog/${username}`);
-      }
+    if (path === "/") return location.pathname === "/";
+    if (path === "/my-blog" || (typeof path === 'string' && path.startsWith("/blog/"))) {
+      return location.pathname === "/my-blog" || location.pathname.startsWith("/blog/");
     }
-
-    return false;
+    return location.pathname.startsWith(path);
   };
 
   const navItems = [
@@ -122,14 +111,21 @@ export default function BottomNav() {
       ))}
       
       {user && (
-         <Link to="/settings" className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-full transition-all duration-200 ${isActive('/settings') ? 'bg-white/10' : ''}`}>
+         <Link 
+          to="/settings" 
+          className={`flex flex-col items-center justify-center gap-1 px-1 py-1.5 rounded-full transition-all duration-300 ${
+            isActive('/settings') 
+              ? 'bg-white/10 text-accent shadow-inner' 
+              : 'text-gray-400 active:scale-90'
+          }`}
+        >
             <Avatar 
               src={user.user_metadata?.avatar_url} 
               alt="Profile" 
               size="xs" 
               className={isActive('/settings') ? 'border-accent' : 'border-transparent'} 
             />
-            <span className={`text-xs font-medium whitespace-nowrap ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
+            <span className="text-xs font-medium whitespace-nowrap">프로필</span>
          </Link>
       )}
     </nav>

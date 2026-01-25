@@ -119,7 +119,8 @@ export default function PostEdit() {
               value={content}
               onChange={setContent}
               height={500}
-              className="border border-secondary rounded-lg overflow-hidden"
+              preview={window.innerWidth < 768 ? 'edit' : 'live'}
+              className="border border-secondary rounded-lg"
             />
           </div>
 
