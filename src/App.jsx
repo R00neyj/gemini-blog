@@ -1,19 +1,23 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import ResetPassword from './pages/ResetPassword';
-import UpdatePassword from './pages/UpdatePassword';
-import Write from './pages/Write';
-import PostDetail from './pages/PostDetail';
-import PostEdit from './pages/PostEdit';
-import MyBlog from './pages/MyBlog';
-import Settings from './pages/Settings';
-import Search from './pages/Search';
-import Notifications from './pages/Notifications';
+import Loading from './components/Loading';
+
+// Lazy Load Pages
+const Home = lazy(() => import('./pages/Home'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const UpdatePassword = lazy(() => import('./pages/UpdatePassword'));
+const Write = lazy(() => import('./pages/Write'));
+const PostDetail = lazy(() => import('./pages/PostDetail'));
+const PostEdit = lazy(() => import('./pages/PostEdit'));
+const MyBlog = lazy(() => import('./pages/MyBlog'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Search = lazy(() => import('./pages/Search'));
+const Notifications = lazy(() => import('./pages/Notifications'));
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -28,60 +32,62 @@ function App() {
     <AuthProvider>
       <Toaster position="top-center" />
       <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/update-password" element={<UpdatePassword />} />
-            <Route path="/search" element={<Search />} />
-            
-            {/* Protected Routes */}
-            <Route
-              path="/notifications"
-              element={
-                <ProtectedRoute>
-                  <Notifications />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/write"
-              element={
-                <ProtectedRoute>
-                  <Write />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/post/:id" element={<PostDetail />} />
-            <Route
-              path="/post/:id/edit"
-              element={
-                <ProtectedRoute>
-                  <PostEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/blog/:username" element={<MyBlog />} />
-            <Route
-              path="/my-blog"
-              element={
-                <ProtectedRoute>
-                  <MyBlog />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <Settings />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-        </Routes>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/update-password" element={<UpdatePassword />} />
+              <Route path="/search" element={<Search />} />
+              
+              {/* Protected Routes */}
+              <Route
+                path="/notifications"
+                element={
+                  <ProtectedRoute>
+                    <Notifications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/write"
+                element={
+                  <ProtectedRoute>
+                    <Write />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/post/:id" element={<PostDetail />} />
+              <Route
+                path="/post/:id/edit"
+                element={
+                  <ProtectedRoute>
+                    <PostEdit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/blog/:username" element={<MyBlog />} />
+              <Route
+                path="/my-blog"
+                element={
+                  <ProtectedRoute>
+                    <MyBlog />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );

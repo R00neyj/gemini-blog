@@ -24,6 +24,9 @@
     - 로컬 스토리지 기반 검색어 저장/삭제/전체삭제
     - 최근 10개 키워드 유지 및 중복 제거
   - **검색어 하이라이팅**: 검색 결과 내 일치하는 텍스트 강조 표시
+- [x] **성능 최적화 (2026-01-26)**
+  - **Code Splitting**: `React.lazy` 및 `Suspense`를 적용하여 라우트 단위 번들 분할 (`App.jsx`)
+  - **이미지 지연 로딩**: `loading="lazy"` 및 `decoding="async"` 속성 적용
 - [x] **PWA 및 모바일 최적화**
   - [x] Manifest 파일 생성 및 아이콘 설정
   - [x] Service Worker 등록 (vite-plugin-pwa)
@@ -58,6 +61,5 @@
 
 ## 📅 예정된 작업 (Upcoming)
 
-- **성능 최적화**: Code Splitting (Route-based lazy loading)
 - **안정성 확보**: Global Error Boundary 구현
 - **기술 스택 업그레이드**: TypeScript 마이그레이션
