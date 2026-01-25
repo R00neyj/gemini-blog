@@ -40,10 +40,20 @@ gemini-community/
 ├── public/              # 정적 자원 (favicon, robots.txt 등)
 ├── src/                 # 소스 코드 메인 디렉토리
 │   ├── assets/          # 컴포넌트 내부에서 import하여 사용하는 이미지/폰트
+│   ├── components/      # 재사용 가능한 UI 컴포넌트
+│   │   └── post/        # 게시글/댓글 관련 특화 컴포넌트
+│   ├── contexts/        # 전역 상태 관리 (AuthContext 등)
+│   ├── hooks/           # 커스텀 React Hooks (useRecentSearches 등)
+│   ├── lib/             # 외부 라이브러리 설정 및 래퍼 (Supabase, Notification)
+│   ├── pages/           # 라우트 페이지 컴포넌트
+│   ├── utils/           # 유틸리티 함수
 │   ├── App.css          # App 컴포넌트 전용 스타일
 │   ├── App.jsx          # 메인 애플리케이션 컴포넌트
-│   ├── index.css        # 전역 스타일 정의
+│   ├── index.css        # 전역 스타일 정의 (Tailwind Directives)
 │   └── main.jsx         # 애플리케이션 진입점 (Entry Point)
+├── supabase/            # Supabase 관련 파일
+│   ├── functions/       # Edge Functions
+│   └── migrations/      # DB 마이그레이션 SQL
 ├── eslint.config.js     # ESLint 설정 (Flat Config)
 ├── vite.config.js       # Vite 빌드 설정
 └── package.json         # 의존성 및 스크립트 관리
