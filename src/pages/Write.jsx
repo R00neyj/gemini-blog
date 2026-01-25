@@ -81,7 +81,8 @@ export default function Write() {
               value={content}
               onChange={setContent}
               height={500}
-              className="border border-secondary rounded-lg overflow-hidden"
+              preview={window.innerWidth < 768 ? 'edit' : 'live'}
+              className="border border-secondary rounded-lg"
               textareaProps={{
                 placeholder: '자유롭게 이야기를 작성해보세요... (Markdown 지원)'
               }}

@@ -49,9 +49,13 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
 
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
-    if (path === "/my-blog" || path.startsWith("/blog/")) {
-      return location.pathname === "/my-blog" || location.pathname.startsWith("/blog/");
+    
+    // Precise My Blog handling
+    if (path === myBlogPath || path === "/my-blog") {
+      return location.pathname === "/my-blog" || (username && location.pathname.startsWith(`/blog/${username}`));
     }
+
+    // Default startsWith for other items (like /settings, /notifications)
     return location.pathname.startsWith(path);
   };
 
@@ -118,6 +122,8 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
             src="/pwa-192x192.png" 
             alt="Logo" 
             className="w-10 h-10 rounded-xl object-contain shadow-lg shrink-0 transition-transform group-hover:scale-105" 
+            loading="lazy"
+            decoding="async"
           />
           <span className={`font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 transition-all duration-300 whitespace-nowrap overflow-hidden ${isExpanded ? "w-auto opacity-100 ml-3 text-xl" : "w-0 opacity-0 ml-0 text-[0px]"}`}>
             Gemini Blog

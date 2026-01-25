@@ -44,7 +44,13 @@ export default function BottomNav() {
     setUnreadCount(count || 0);
   };
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    if (path === "/my-blog" || (typeof path === 'string' && path.startsWith("/blog/"))) {
+      return location.pathname === "/my-blog" || location.pathname.startsWith("/blog/");
+    }
+    return location.pathname.startsWith(path);
+  };
 
   const navItems = [
     { path: "/", label: "홈", icon: (
@@ -87,8 +93,7 @@ export default function BottomNav() {
 
   return (
     <nav 
-      className={`w-full bg-[#121212]/70 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid ${user ? 'grid-cols-5' : 'grid-cols-3'} items-center px-2 py-2`}
-      style={{ WebkitBackdropFilter: 'blur(20px)' }}
+      className={`w-full grid ${user ? 'grid-cols-5' : 'grid-cols-3'} gap-1 items-center`}
     >
       {navItems.map((item) => (
         <Link
@@ -106,14 +111,21 @@ export default function BottomNav() {
       ))}
       
       {user && (
-         <Link to="/settings" className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-full transition-all duration-200 ${isActive('/settings') ? 'bg-white/10' : ''}`}>
+         <Link 
+          to="/settings" 
+          className={`flex flex-col items-center justify-center gap-1 px-1 py-1.5 rounded-full transition-all duration-300 ${
+            isActive('/settings') 
+              ? 'bg-white/10 text-accent shadow-inner' 
+              : 'text-gray-400 active:scale-90'
+          }`}
+        >
             <Avatar 
               src={user.user_metadata?.avatar_url} 
               alt="Profile" 
               size="xs" 
               className={isActive('/settings') ? 'border-accent' : 'border-transparent'} 
             />
-            <span className={`text-xs font-medium whitespace-nowrap ${isActive('/settings') ? 'text-accent' : 'text-gray-400'}`}>프로필</span>
+            <span className="text-xs font-medium whitespace-nowrap">프로필</span>
          </Link>
       )}
     </nav>

@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabaseClient';
 import Avatar from '../components/Avatar';
 import PostActions from '../components/post/PostActions';
 import HighlightText from '../components/HighlightText';
+import { useRecentSearches } from '../hooks/useRecentSearches';
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,6 +12,7 @@ export default function Search() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState(query);
+  const { searches, addSearch, removeSearch, clearSearches } = useRecentSearches();
 
   useEffect(() => {
     if (query) {
@@ -46,6 +48,7 @@ export default function Search() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput.trim()) {
+      addSearch(searchInput);
       setSearchParams({ q: searchInput });
     }
   };
@@ -89,6 +92,40 @@ export default function Search() {
             </button>
           </form>
         </div>
+
+        {/* Recent Searches */}
+        {!query && searches.length > 0 && (
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">최근 검색어</h2>
+              <button 
+                onClick={clearSearches}
+                className="text-xs text-gray-500 hover:text-red-400 transition-colors"
+              >
+                전체 삭제
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {searches.map((term, index) => (
+                <div 
+                  key={index}
+                  className="group flex items-center bg-surface border border-secondary rounded-full px-4 py-2 hover:border-accent/50 transition-all cursor-pointer"
+                  onClick={() => setSearchParams({ q: term })}
+                >
+                  <span className="text-gray-300 text-sm group-hover:text-white">{term}</span>
+                  <button
+                    onClick={(e) => removeSearch(term, e)}
+                    className="ml-2 text-gray-500 hover:text-red-400 p-0.5 rounded-full hover:bg-white/10 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Results */}
         {loading ? (

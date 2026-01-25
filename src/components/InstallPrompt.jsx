@@ -71,7 +71,7 @@ export default function InstallPrompt() {
       {/* FAB */}
       <button
         onClick={handleFabClick}
-        className="p-4 bg-black/40 backdrop-blur-xl text-white rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-white/5 active:scale-95 transition-all duration-300 flex-shrink-0"
+        className="p-4 text-white active:scale-95 transition-all duration-300 flex-shrink-0"
         aria-label="앱 설치 안내"
       >
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,7 +106,7 @@ export default function InstallPrompt() {
             <div className="flex flex-col items-center gap-6">
               {/* QR Code */}
               <div className="bg-white p-2 rounded-xl">
-                <img src={qrcodeImg} alt="Install QR Code" className="w-32 h-32 object-contain" />
+                <img src={qrcodeImg} alt="Install QR Code" className="w-32 h-32 object-contain" loading="lazy" decoding="async" />
               </div>
 
               {/* Install Guide */}

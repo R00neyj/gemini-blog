@@ -14,6 +14,7 @@ export default function Settings() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pushEnabled, setPushEnabled] = useState(false);
   const [pushLoading, setPushLoading] = useState(false);
+  const [isPickerExpanded, setIsPickerExpanded] = useState(false);
 
   // Avatar states
   const [avatarType, setAvatarType] = useState("emoji"); // 'emoji' or 'symbol'
@@ -52,10 +53,28 @@ export default function Settings() {
     }
 
     // Check push status
-    checkSubscriptionStatus().then(setPushEnabled);
+    const initPushStatus = async () => {
+      setPushLoading(true);
+      try {
+        const status = await checkSubscriptionStatus();
+        setPushEnabled(status);
+      } catch (error) {
+        console.error("Failed to check push status:", error);
+      } finally {
+        setPushLoading(false);
+      }
+    };
+    
+    initPushStatus();
   }, [user]);
 
   const handlePushToggle = async () => {
+    // Check permission first
+    if (Notification.permission === 'denied') {
+      toast.error("브라우저 설정에서 알림 권한을 허용해주세요.");
+      return;
+    }
+
     setPushLoading(true);
     try {
       if (pushEnabled) {
@@ -184,7 +203,7 @@ export default function Settings() {
                 </div>
 
                 {/* Value Picker */}
-                <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 max-h-32 overflow-y-auto p-2 bg-white/5 rounded-xl border border-white/5 scrollbar-hide">
+                <div className={`grid grid-cols-6 sm:grid-cols-8 gap-2 overflow-y-auto p-2 bg-white/5 rounded-xl border border-white/5 scrollbar-hide transition-all duration-300 ${isPickerExpanded ? 'max-h-80' : 'max-h-32'}`}>
                   {(avatarType === "emoji" ? emojis : symbols).map((val) => (
                     <button
                       key={val}
@@ -200,15 +219,32 @@ export default function Settings() {
                   ))}
                 </div>
 
+                {/* Mobile Expand Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsPickerExpanded(!isPickerExpanded)}
+                  className="w-full py-2 text-xs font-bold text-gray-500 hover:text-white sm:hidden flex items-center justify-center gap-1 transition-colors"
+                >
+                  {isPickerExpanded ? (
+                    <>
+                      접기 <span className="material-symbols-rounded text-sm rotate-180">expand_more</span>
+                    </>
+                  ) : (
+                    <>
+                      더 보기 <span className="material-symbols-rounded text-sm">expand_more</span>
+                    </>
+                  )}
+                </button>
+
                 {/* Background Picker */}
-                <div className="space-y-3">
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">배경색</label>
-                  <div className="flex flex-wrap gap-3">
+                <div className="space-y-4">
+                  <label className="block text-[15px] font-bold text-gray-400 uppercase tracking-wider ml-1 text-center sm:text-left">배경색</label>
+                  <div className="flex flex-nowrap gap-4 overflow-x-auto py-2 scrollbar-hide justify-start sm:justify-start px-2">
                     {bgColors.map((color) => (
                       <button
                         key={color.class}
                         onClick={() => setAvatarBg(color.class)}
-                        className={`w-8 h-8 rounded-full ${color.class} transition-all ${avatarBg === color.class ? "ring-2 ring-white ring-offset-2 ring-offset-primary scale-110" : "hover:scale-105"}`}
+                        className={`w-10 h-10 rounded-full flex-shrink-0 ${color.class} transition-all ${avatarBg === color.class ? "ring-2 ring-white ring-offset-2 ring-offset-primary shadow-lg" : "hover:scale-105 opacity-80 hover:opacity-100"}`}
                         title={color.name}
                       />
                     ))}

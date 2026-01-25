@@ -6,12 +6,12 @@
 
   --color-primary: #191919;
   --color-secondary: #37352f1f; /* Notion-like subtle divider/border */
-  --color-accent: #4164db;    /* Updated blue accent */
-  
+  --color-accent: #4164db; /* Updated blue accent */
+
   /* Additional Dark Mode Colors based on palette */
   --color-surface: #202020; /* Slightly lighter for cards/surfaces */
-  --color-text-main: #FFFFFFE6; /* Notion-like off-white text */
-  --color-text-muted: #9B9B9B;  /* Notion-like muted text */
+  --color-text-main: #ffffffe6; /* Notion-like off-white text */
+  --color-text-muted: #9b9b9b; /* Notion-like muted text */
 
   /* Animations */
   --animate-fade-in: fadeIn 0.6s ease-out forwards;
@@ -21,20 +21,42 @@
   --animate-bounce: bounce 1s infinite;
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
   @keyframes bounce {
-    0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
-    50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
   }
 }
 
@@ -46,10 +68,13 @@ body {
 }
 
 /* Inputs and forms override */
-input, textarea {
+input,
+textarea {
   background-color: var(--color-surface);
   color: var(--color-text-main);
   border-color: var(--color-secondary);
+  font-family: var(--font-sans);
+  font-size: 16px;
 }
 
 /* Restore list styles for Markdown Editor Viewer */
@@ -83,6 +108,34 @@ input, textarea {
   transition: all 0.2s ease !important;
 }
 
+/* Dropdown Menu Fix (Heading, etc.) */
+.w-md-editor-toolbar-child {
+  background-color: #202020 !important;
+  border: 1px solid var(--color-secondary) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+  z-index: 1000 !important;
+  padding: 4px !important;
+}
+
+.w-md-editor-toolbar-child button {
+  width: 100% !important;
+  height: auto !important;
+  min-width: 160px !important;
+  padding: 8px 12px !important;
+  justify-content: flex-start !important;
+  background: transparent !important;
+}
+
+.w-md-editor-toolbar-child button div {
+  font-family: var(--font-sans) !important;
+  color: var(--color-text-main) !important;
+}
+
+.w-md-editor-toolbar-child button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .w-md-editor-toolbar button svg {
   width: 20px !important;
   height: 20px !important;
@@ -93,11 +146,20 @@ input, textarea {
   color: var(--color-accent) !important;
 }
 
-.w-md-editor-content {
-  font-size: 16px !important;
-  line-height: 1.6 !important;
+/* Markdown Editor Grid and Typography */
+@media (min-width: 768px) {
+  .w-md-editor-content {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 !important;
+  }
+  .w-md-editor-content > .w-md-editor-area {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+  }
 }
 
-.w-md-editor-text-input {
-  padding: 16px !important;
+.w-md-editor {
+  box-shadow: none !important;
 }

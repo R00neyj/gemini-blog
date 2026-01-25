@@ -76,6 +76,7 @@ export default function Notifications() {
         .eq('id', notificationId);
 
       if (error) throw error;
+      toast.success('알림이 삭제되었습니다.');
     } catch (error) {
       console.error('Error deleting notification:', error);
       // Revert if needed, but for delete we usually just show error toast
@@ -147,7 +148,7 @@ export default function Notifications() {
               >
                 <button
                   onClick={(e) => deleteNotification(e, notification.id)}
-                  className="absolute top-3 right-3 text-gray-500 hover:text-red-400 p-1 rounded-full hover:bg-white/5 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                  className="absolute top-3 right-3 text-gray-500 hover:text-red-400 p-1 rounded-full hover:bg-white/5 transition-colors"
                   title="알림 삭제"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -75,9 +75,13 @@ export default function PostDetail() {
     }
   };
 
-  const handleCommentSubmit = async (e) => {
+  const handleCommentSubmit = async (e, content = null, parentId = null) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
+    
+    // If content is passed (reply), use it. Otherwise use state (main comment).
+    const commentContent = content !== null ? content : newComment;
+    
+    if (!commentContent.trim()) return;
 
     try {
       const { data, error } = await supabase
@@ -86,7 +90,8 @@ export default function PostDetail() {
           {
             post_id: id,
             user_id: user.id,
-            content: newComment
+            content: commentContent,
+            parent_id: parentId // Add parent_id
           }
         ])
         .select(`
@@ -98,33 +103,50 @@ export default function PostDetail() {
       if (error) throw error;
 
       setComments([...comments, data]);
-      setNewComment('');
+      if (content === null) {
+          setNewComment(''); // Clear main input only if it was main submission
+      }
+      
       toast.success('댓글이 등록되었습니다.');
 
       // Create Notification
-      if (post?.user_id) {
+      // If reply, notify the parent comment author
+      // If root comment, notify post author
+      
+      // Logic for notification target:
+      let targetUserId = post?.user_id;
+      let notifType = 'comment';
+
+      if (parentId) {
+          // Find parent comment to get its author
+          const parentComment = comments.find(c => c.id === parentId);
+          if (parentComment) {
+              targetUserId = parentComment.user_id;
+              notifType = 'reply'; // We can use 'comment' type but distinguish message logic if needed, or just 'comment' is fine as per spec
+          }
+      }
+
+      if (targetUserId && targetUserId !== user.id) {
         createNotification({
-            userId: post.user_id,
+            userId: targetUserId,
             actorId: user.id,
-            type: 'comment',
+            type: notifType === 'reply' ? 'comment' : 'comment', // Keeping 'comment' for now to match existing enum
             postId: id
         });
       }
 
-      // Trigger Push Notification (Fire and forget)
-      // Note: In a real app, this should ideally be triggered by a Database Webhook to ensure reliability
-      // and security (validating the payload). But for this demo, we call it directly.
+      // Trigger Push Notification
       fetch('https://itfsgqvydtcdglmnflpy.supabase.co/functions/v1/push-notification', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NODE_ENV === 'development' ? import.meta.env.VITE_SUPABASE_ANON_KEY : ''}` // Anon key is usually needed for public functions or we can make it public
+          'Authorization': `Bearer ${process.env.NODE_ENV === 'development' ? import.meta.env.VITE_SUPABASE_ANON_KEY : ''}`
         },
         body: JSON.stringify({
             record: {
                 post_id: id,
-                content: newComment,
-                user_id: user.id // Commenter ID
+                content: commentContent,
+                user_id: user.id
             }
         })
       }).catch(err => console.error('Push trigger error:', err));

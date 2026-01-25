@@ -35,7 +35,7 @@ export default function DesktopQrButton() {
             <p className="text-gray-400 mb-6">QR코드를 스캔하여 앱을 설치하세요.</p>
 
             <div className="bg-white p-4 rounded-xl inline-block mb-6 shadow-inner">
-              <img src={qrCodeImg} alt="App QR Code" className="w-48 h-48 object-contain" />
+              <img src={qrCodeImg} alt="App QR Code" className="w-48 h-48 object-contain" loading="lazy" decoding="async" />
             </div>
 
             <button

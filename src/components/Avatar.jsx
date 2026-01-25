@@ -21,7 +21,7 @@ export default function Avatar({ src, alt, size = "md", className = "" }) {
 
   const renderContent = () => {
     if (!src) {
-      return <img src={defaultAvatar} alt={alt} className="w-full h-full object-cover" />;
+      return <img src={defaultAvatar} alt={alt} className="w-full h-full object-cover" loading="lazy" decoding="async" />;
     }
 
     // Check if it's a custom avatar (Format: type|value|bg)
@@ -41,7 +41,7 @@ export default function Avatar({ src, alt, size = "md", className = "" }) {
     }
 
     // Otherwise, assume it's a URL
-    return <img src={src} alt={alt} className="w-full h-full object-cover" />;
+    return <img src={src} alt={alt} className="w-full h-full object-cover" loading="lazy" decoding="async" />;
   };
 
   return (
